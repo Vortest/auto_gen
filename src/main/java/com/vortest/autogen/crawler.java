@@ -28,6 +28,7 @@ public class Crawler {
     public void openBrowser() {
         driver = new FirefoxDriver();
         driver.get(baseUrl);
+        PageParser parse = new PageParser(driver);
     }
 
 
