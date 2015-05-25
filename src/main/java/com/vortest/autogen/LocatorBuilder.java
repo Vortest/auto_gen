@@ -7,9 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * Created by SethUrban on 5/24/15.
- */
+
 public class LocatorBuilder {
     private WebElement element;
     private int maxLocators = 5;
@@ -35,6 +33,7 @@ public class LocatorBuilder {
         if(noChildren()){
             //If there is no child element - assume this is an interactive element
             String id = element.getAttribute("id");
+
         }
     }
 

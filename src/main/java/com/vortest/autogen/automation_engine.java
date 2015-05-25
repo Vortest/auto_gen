@@ -8,6 +8,7 @@ import org.openqa.selenium.*;
 public class automation_engine {
     private static String entryURL;
     public static Crawler crawl;
+    private static final boolean DEBUG = true;
 
     public static void main(String [] args){
         //parse the args
@@ -17,14 +18,18 @@ public class automation_engine {
     }
 
     private static void setupArgs(String[] args) {
-        System.out.print("Maven Compiled\n");
-        if (args.length == 0){
-            System.out.print("There was no URL specified.\n");
-            System.exit(-1);
+        if(DEBUG){
+            entryURL = "http://localhost/homepage.php";
         }
-        else {
-            System.out.print(String.format("Selected URL setto: %s %s", args[0], "\n"));
-            entryURL = args[0];
+        else{
+            if (args.length == 0){
+                System.out.print("There was no URL specified.\n");
+                System.exit(-1);
+            }
+            else {
+                System.out.print(String.format("Selected URL setto: %s %s", args[0], "\n"));
+                entryURL = args[0];
+            }
         }
     }
 }

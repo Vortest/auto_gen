@@ -19,6 +19,7 @@ public class Crawler {
     private WebDriver driver;
     private String baseUrl;
 
+
     public Crawler(String startURL){
 
         baseUrl = startURL;
@@ -28,6 +29,8 @@ public class Crawler {
     public void openBrowser() {
         driver = new FirefoxDriver();
         driver.get(baseUrl);
+
+        //need to check that the page is done loading
         PageParser parse = new PageParser(driver);
     }
 
