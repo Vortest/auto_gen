@@ -27,7 +27,7 @@ public class Crawler {
 
     public void openBrowser() {
         driver = new FirefoxDriver();
-        driver.get("http://www.google.com");
+        driver.get(baseUrl);
     }
 
 
