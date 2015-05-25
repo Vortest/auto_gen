@@ -1,3 +1,5 @@
+package com.vortest.autogen;
+
 import org.junit.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -13,26 +15,20 @@ import static junit.framework.Assert.assertTrue;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class crawler {
+public class Crawler {
     private WebDriver driver;
     private String baseUrl;
 
+    public Crawler(String startURL){
 
-    @Before
+        baseUrl = startURL;
+        openBrowser();
+    }
+
     public void openBrowser() {
-        baseUrl = "http://localhost/homePage.php";
         driver = new FirefoxDriver();
-        driver.get(baseUrl);
+        driver.get("http://www.google.com");
     }
 
-    @Test
-    public void pageTitleAfterSearchShouldBeginWithDrupal() throws IOException {
-        System.out.println("Getting test page...");
-        System.out.print(driver.getPageSource());
-    }
 
-    @After
-    public void destroy(){
-        driver.quit();
-    }
 }
