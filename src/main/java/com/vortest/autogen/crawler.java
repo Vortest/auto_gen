@@ -21,7 +21,7 @@ public class Crawler {
 
     public Crawler(String startURL){
         baseUrl = startURL;
-        autogen_logging.log(Crawler.class.getSimpleName() + "Opening Browser...");
+        autogen_logging.log(Crawler.class.getSimpleName() + " Opening Browser...");
         openBrowser();
     }
 

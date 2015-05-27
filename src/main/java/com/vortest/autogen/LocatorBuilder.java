@@ -45,6 +45,7 @@ public class LocatorBuilder {
         }
         _element.setLocators(_allLocators);
     }
+
     //TODO move this to a new class
     private void TestLocator(Locator locator){
         //First we try and find the element - then make sure there's only one element found with that locator.

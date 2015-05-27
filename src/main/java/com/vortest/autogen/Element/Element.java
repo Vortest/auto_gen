@@ -95,5 +95,8 @@ public class Element {
     public void setLocators(List<Locator> locators){
         _locators = locators;
     }
+    public List<Locator> get_locators(){
+        return _locators;
+    }
 
 }

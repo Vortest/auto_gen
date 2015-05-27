@@ -12,6 +12,10 @@ public class Locator {
         this.param = param;
     }
 
+    public String toString(){
+        return ToBy().toString();
+    }
+
     public By ToBy(){
         switch(By){
             case ClassName:
