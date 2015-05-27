@@ -21,7 +21,7 @@ public class automation_engine {
 
     private static void setupArgs(String[] args) {
         if(DEBUG){
-            entryURL = "http://localhost/homepage.php";
+            entryURL = "http://adam.goucher.ca/parkcalc/";
         }
         else{
             if (args.length == 0){
