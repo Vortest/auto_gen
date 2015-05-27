@@ -1,5 +1,6 @@
 package com.vortest.autogen;
 
+import com.vortest.autogen.Element.Element;
 import org.openqa.selenium.*;
 
 import java.util.ArrayList;

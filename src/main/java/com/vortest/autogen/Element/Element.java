@@ -1,6 +1,8 @@
-package com.vortest.autogen;
+package com.vortest.autogen.Element;
 
 
+import com.vortest.autogen.Crawler;
+import com.vortest.autogen.Locator;
 import org.openqa.selenium.*;
 
 

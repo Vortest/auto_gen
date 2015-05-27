@@ -1,10 +1,8 @@
 package com.vortest.autogen;
 
-import jdk.nashorn.internal.runtime.regexp.joni.Regex;
-import org.openqa.selenium.By;
+import com.vortest.autogen.Element.Element;
 import org.openqa.selenium.WebElement;
 
-import javax.xml.crypto.dsig.keyinfo.KeyValue;
 import java.util.ArrayList;
 import java.util.List;
 
