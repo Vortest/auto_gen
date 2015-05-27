@@ -39,11 +39,13 @@ public class PageParser {
             System.out.print(String.format("Class Name: %s", childElements.get(i).getAttribute("class") + "\n"));
             System.out.print(childElements.get(i).getAttribute("outerHTML") + "\n");
             System.out.print(childElements.get(i).getAttribute("innerHTML") + "\n");*/
-            List<String> elementLocators = new ArrayList<String>();
-            elementLocators = new LocatorBuilder(childElements.get(i)).getGoodLocators();
+
+            List<String> elementLocators = new LocatorBuilder(childElements.get(i)).getGoodLocators();
             for(int x = 0; x < elementLocators.size(); x++){
                 System.out.println(elementLocators.get(x));
             }
+
+
         }
     }
 

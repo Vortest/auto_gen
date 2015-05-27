@@ -1,8 +1,10 @@
 package com.vortest.autogen;
 
+import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import javax.xml.crypto.dsig.keyinfo.KeyValue;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,22 +34,31 @@ public class LocatorBuilder {
     }
 
     private void buildLocators() {
+        //This could scan for all kinds of elements <hr>, <p>, <h2> etc
+        String elementId = element.getAttribute("id");
+        String elementClass = element.getAttribute("class");
+        String elementText = element.getText();
+        String elementTag = element.getTagName();
 
         //now we want to find all the children of the children and stop when there are no more children
         if(noChildren()){
             //If there is no child element - assume this is an interactive element
-            if(element.getAttribute("id") != ""){
+            if(!elementId.equals("")){
                 //Test the Locator by building with ID
                 TestLocator(new Locator(ByOption.Id, element.getAttribute("id")));
             }
-            if(element.getAttribute("class") != ""){
+            if(!elementClass.equals("")){
                 //Test Locator building with class name.
                 TestLocator(new Locator(ByOption.ClassName, element.getAttribute("class")));
             }
-            if(element.getText() != ""){
-                if(element.getTagName() == "a"){
-                    //Do some link text here
-                    //TODO need to check this one
+            if(!elementText.equals("")){
+                //This is the section that we could add all kinds of modules to
+                if(elementTag.equals("a")){
+                    //Do some link text here                    
+                    TestLocator(new Locator(ByOption.LinkText, element.getText()));
+                }
+                if(elementTag.equals("select")){
+                    //This is a standard drop down menu
                     TestLocator(new Locator(ByOption.LinkText, element.getText()));
                 }
                 else{

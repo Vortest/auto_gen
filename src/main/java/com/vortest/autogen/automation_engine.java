@@ -9,11 +9,13 @@ public class automation_engine {
     private static String entryURL;
     public static Crawler crawl;
     private static final boolean DEBUG = true;
+    private static autogen_logging log = new autogen_logging();
 
     public static void main(String [] args){
         //parse the args
         setupArgs(args);
         //call some class to setup the browser
+        log.log("Here's a log sucker!");
         crawl = new Crawler(entryURL);
     }
 

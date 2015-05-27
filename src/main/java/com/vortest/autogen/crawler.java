@@ -19,9 +19,9 @@ public class Crawler {
     private static WebDriver driver;
     private String baseUrl;
 
-
     public Crawler(String startURL){
         baseUrl = startURL;
+        autogen_logging.log("Opening browser");
         openBrowser();
     }
 
