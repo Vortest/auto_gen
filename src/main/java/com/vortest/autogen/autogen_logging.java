@@ -2,7 +2,6 @@ package com.vortest.autogen;
 
 
 import java.io.IOException;
-import java.time.LocalTime;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
@@ -19,15 +18,23 @@ public class autogen_logging {
             SimpleFormatter formatter = new SimpleFormatter();
             fh.setFormatter(formatter);
         }catch (SecurityException e){
-
+            e.printStackTrace();
         }catch (IOException e){
-
+            e.printStackTrace();
         }
     }
 
     public static void log(String message){
         System.out.println(message);
         log.info(message);
+    }
+
+    public static void warn(String message){
+        log.warning(message);
+    }
+
+    public static void error(String message){
+        log.severe(message);
     }
 
 }
