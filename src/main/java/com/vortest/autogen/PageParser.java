@@ -57,7 +57,9 @@ public class PageParser {
     public void getSource2(){
         //Assuming that all elements with no children are interactive - meaning they change the state of the application
         //So if the child element has an ID tag we're pretty much done - if the child element does not have an ID tag we would need to trace up the linage a bit
-
+        for(int i = 0; i < childElements.size(); i++){
+            LocatorBuilder locbuild = new LocatorBuilder(childElements.get(i));
+        }
 
     }
 

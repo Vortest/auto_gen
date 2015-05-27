@@ -10,65 +10,44 @@ import java.util.List;
 
 
 public class LocatorBuilder {
-    private WebElement element;
-    private int maxLocators = 5;
+    private Element _element;
+    private List<Locator> _allLocators;
+
     private List<String> goodLocators;
     private List<String> badLocators;
     private List<String> duplicateLocators;
 
     //because Java doesn't support default argument values - WTF?
-    public LocatorBuilder(WebElement we){
+    public LocatorBuilder(Element we){
+        _allLocators = new ArrayList<Locator>();
+
         goodLocators = new ArrayList<String>();
         badLocators = new ArrayList<String>();
         duplicateLocators = new ArrayList<String>();
-        element = we;
+        _element = we;
         buildLocators();
     }
 
-    private boolean noChildren(){
-        boolean hasChild = true;
-        if(!element.findElements(By.cssSelector("*")).isEmpty()){
-            hasChild = false;
-        }
-        return hasChild;
-    }
-
     private void buildLocators() {
-        //This could scan for all kinds of elements <hr>, <p>, <h2> etc
-        String elementId = element.getAttribute("id");
-        String elementClass = element.getAttribute("class");
-        String elementText = element.getText();
-        String elementTag = element.getTagName();
-
-        //now we want to find all the children of the children and stop when there are no more children
-        if(noChildren()){
-            //If there is no child element - assume this is an interactive element
-            if(!elementId.equals("")){
-                //Test the Locator by building with ID
-                TestLocator(new Locator(ByOption.Id, element.getAttribute("id")));
+        if(_element.isInteractive()){
+            if(_element.Attributes.containsKey("id")){
+                _allLocators.add(new Locator(ByOption.Id, _element.getAttribute("id")));
             }
-            if(!elementClass.equals("")){
-                //Test Locator building with class name.
-                TestLocator(new Locator(ByOption.ClassName, element.getAttribute("class")));
+            if(_element.Attributes.containsKey("class")){
+                _allLocators.add(new Locator(ByOption.ClassName, _element.getAttribute("class")));
             }
-            if(!elementText.equals("")){
-                //This is the section that we could add all kinds of modules to
-                if(elementTag.equals("a")){
-                    //Do some link text here                    
-                    TestLocator(new Locator(ByOption.LinkText, element.getText()));
-                }
-                if(elementTag.equals("select")){
-                    //This is a standard drop down menu
-                    TestLocator(new Locator(ByOption.LinkText, element.getText()));
+            if(_element.hasText()){
+                if(_element.TagName.equals("a")){
+                    _allLocators.add(new Locator(ByOption.LinkText, _element.get_text()));
                 }
                 else{
-                    //Do some contains stuff here
-                    TestLocator(new Locator(ByOption.XPath, String.format("//%s[contains(test(), '%s')]", element.getTagName(), element.getText())));
+                    _allLocators.add(new Locator(ByOption.XPath, String.format("//%s[contains(text(), '%s')]", _element.TagName, _element.get_text())));
                 }
             }
         }
+        _element.setLocators(_allLocators);
     }
-
+    //TODO move this to a new class
     private void TestLocator(Locator locator){
         //First we try and find the element - then make sure there's only one element found with that locator.
 
