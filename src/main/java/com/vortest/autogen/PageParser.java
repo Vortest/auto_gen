@@ -8,27 +8,30 @@ import java.util.List;
 
 public class PageParser {
     private WebDriver driver;
-    private List<WebElement> elements;
+    private List<WebElement> allelements;
     //private List<WebElement> childElements;
     private List<Element> childElements;
     private LocatorBuilder locatorBuilder;
 
-    public PageParser(WebDriver d){
-        driver = d;
+    public PageParser(){
+        getAllElements();
         getChildelements();
     }
 
+    public void getAllElements(){
+        allelements = Crawler.getDriver().findElements(By.cssSelector("body *"));
+    }
+
     public void getChildelements(){
-        elements = driver.findElements(By.cssSelector("body *"));
         childElements = new ArrayList<Element>();
 
-        autogen_logging.log(String.format("Found %s TOTAL elements on the page", elements.size()));
+        autogen_logging.log(String.format("Found %s TOTAL elements on the page", allelements.size()));
 
         //We assume that every element without a child is an interactive element
-        for(int i = 0; i < elements.size(); i++){
+        for(int i = 0; i < allelements.size(); i++){
             //check to see if the element has a child
-            if(elements.get(i).findElements(By.cssSelector("*")).isEmpty()){
-                Element childele = new Element(elements.get(i));
+            if(allelements.get(i).findElements(By.cssSelector("*")).isEmpty()){
+                Element childele = new Element(allelements.get(i));
                 childElements.add(childele);
             }
         }
@@ -39,21 +42,8 @@ public class PageParser {
         getSource2();
     }
 
-    public void getSource(){
-        //This is going to find all the elements on the page
 
-        for(int i = 0; i < childElements.size(); i++){
-/*          System.out.print(String.format("Tag Name: %s",childElements.get(i).getTagName() + "\n"));
-            System.out.print(String.format("Class Name: %s", childElements.get(i).getAttribute("class") + "\n"));
-            System.out.print(childElements.get(i).getAttribute("outerHTML") + "\n");
-            System.out.print(childElements.get(i).getAttribute("innerHTML") + "\n");
 
-            List<String> elementLocators = new LocatorBuilder(childElements.get(i)).getGoodLocators();
-            for(int x = 0; x < elementLocators.size(); x++){
-                System.out.println(elementLocators.get(x));
-            }*/
-        }
-    }
 
     public void getSource2(){
         //TODO This is the beginings of the page object storage

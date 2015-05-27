@@ -30,7 +30,7 @@ public class Crawler {
         driver.get(baseUrl);
 
         //need to check that the page is done loading
-        PageParser parse = new PageParser(driver);
+        PageParser parse = new PageParser();
     }
 
     public static WebDriver getDriver(){

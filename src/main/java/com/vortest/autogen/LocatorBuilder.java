@@ -18,7 +18,6 @@ public class LocatorBuilder {
     //because Java doesn't support default argument values - WTF?
     public LocatorBuilder(Element we){
         _allLocators = new ArrayList<Locator>();
-
         goodLocators = new ArrayList<String>();
         badLocators = new ArrayList<String>();
         duplicateLocators = new ArrayList<String>();
@@ -33,6 +32,9 @@ public class LocatorBuilder {
             }
             if(_element.Attributes.containsKey("class")){
                 _allLocators.add(new Locator(ByOption.ClassName, _element.getAttribute("class")));
+            }
+            if(_element.TagName.equals("input")){
+                //TODO do something here
             }
             if(_element.hasText()){
                 if(_element.TagName.equals("a")){
