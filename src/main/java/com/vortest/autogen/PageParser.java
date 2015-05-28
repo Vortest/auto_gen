@@ -8,60 +8,86 @@ import java.util.List;
 
 public class PageParser {
     private WebDriver driver;
-    private List<WebElement> allelements;
-    //private List<WebElement> childElements;
-    private List<Element> childElements;
+    private List<WebElement> _allWebElements;
+    private List<Element> _parentElements;
+    //private List<WebElement> _childElements;
+    private List<Element> _childElements;
     private LocatorBuilder locatorBuilder;
 
+    private List<String> parentHTML;
+    private List<String> childHTML;
+
     public PageParser(){
+        parentHTML = new ArrayList<String>();
+        childHTML = new ArrayList<String>();
         getAllElements();
         getChildelements();
     }
 
     public void getAllElements(){
-        allelements = Crawler.getDriver().findElements(By.cssSelector("body *"));
+        _parentElements = new ArrayList<Element>();
+        _allWebElements = new ArrayList<WebElement>();
+        _allWebElements = Crawler.getDriver().findElements(By.cssSelector("body *"));
+        for(int x = 0; x < _allWebElements.size(); x++){
+            parentHTML.add(_allWebElements.get(x).getAttribute("outerHTML"));
+            Element anElement = new Element(_allWebElements.get(x));
+            _parentElements.add(anElement);
+        }
     }
 
     public void getChildelements(){
-        childElements = new ArrayList<Element>();
+        _childElements = new ArrayList<Element>();
 
-        autogen_logging.log(String.format("Found %s TOTAL elements on the page", allelements.size()));
-
-        //We assume that every element without a child is an interactive element
-        for(int i = 0; i < allelements.size(); i++){
+        autogen_logging.log(String.format("Found %s TOTAL elements on the page", _parentElements.size()));
+        for(int i = 0; i < _parentElements.size(); i++){
             //check to see if the element has a child
-            if(allelements.get(i).findElements(By.cssSelector("*")).isEmpty()){
-                Element childele = new Element(allelements.get(i));
-                childElements.add(childele);
+            if(_allWebElements.get(i).findElements(By.cssSelector("*")).isEmpty()){
+                childHTML.add(_allWebElements.get(i).getAttribute("outerHTML"));
+                Element childele = new Element(_allWebElements.get(i));
+                _childElements.add(childele);
             }
         }
 
-        autogen_logging.log(String.format("Found %s elements with No children", childElements.size()));
+        autogen_logging.log(String.format("Found %s elements with No children", _childElements.size()));
 
         //TODO here's where i'm tinkering
-        getSource2();
+        testElements();
     }
 
+    public void testElements(){
+        //So every element in the childelements list should be present in the all elements list
+        int checksum = 0;
+        //Child elements should be less than all elements
+        if(parentHTML.size() > childHTML.size()){
+            System.out.println("All elements contains more than child elements.");
+            for(int x = 0; x < childHTML.size(); x++){
+                if(parentHTML.contains(childHTML.get(x))){
+                    checksum += 1;
+                }
+            }
 
+        }
+        System.out.println(String.format("Childelements: %s  FoundChildren: %s", _childElements.size(), checksum));
 
+    }
 
     public void getSource2(){
         //TODO This is the beginings of the page object storage
         //Assuming that all elements with no children are interactive - meaning they change the state of the application
         //So if the child element has an ID tag we're pretty much done - if the child element does not have an ID tag we would need to trace up the linage a bit
-        for(int i = 0; i < childElements.size(); i++){
-            LocatorBuilder locbuild = new LocatorBuilder(childElements.get(i));
+        for(int i = 0; i < _childElements.size(); i++){
+            LocatorBuilder locbuild = new LocatorBuilder(_childElements.get(i));
         }
-        for(int i = 0; i < childElements.size(); i++){
-            System.out.println("***ELEMENT: " + childElements.get(i).toString());
-            if(childElements.get(i).hasText()){
-                System.out.println("Text: " + childElements.get(i).get_text());
+        for(int i = 0; i < _childElements.size(); i++){
+            System.out.println("***ELEMENT: " + _childElements.get(i).toString());
+            if(_childElements.get(i).hasText()){
+                System.out.println("Text: " + _childElements.get(i).get_text());
             }
-            if(childElements.get(i).Attributes != null){
-                System.out.println("Attributes: " + childElements.get(i).Attributes.toString());
+            if(_childElements.get(i).Attributes != null){
+                System.out.println("Attributes: " + _childElements.get(i).Attributes.toString());
             }
-            for(int x = 0; x < childElements.get(i).get_locators().size(); x++){
-                System.out.print("Locators: " + childElements.get(i).get_locators().get(x).toString());
+            for(int x = 0; x < _childElements.get(i).get_locators().size(); x++){
+                System.out.print("Locators: " + _childElements.get(i).get_locators().get(x).toString());
             }
         }
     }
