@@ -26,29 +26,20 @@ public class LocatorBuilder {
     }
 
     private void buildLocators() {
-        if(_element.isInteractive()){
-            if(_element.Attributes.containsKey("id")){
+        //I'm thinking we should just build a locator for everything
+        //With an xpath containing several attributes
+        //This way we shouldn't have to build multiple locators just one unique one
+        if(_element.isInteractive()) {
+            if (_element.Attributes.containsKey("id")) {//This locator should always be unique
                 _allLocators.add(new Locator(ByOption.Id, _element.getAttribute("id")));
             }
-            if(_element.Attributes.containsKey("class")){
-                _allLocators.add(new Locator(ByOption.ClassName, _element.getAttribute("class")));
-            }
-            if(_element.TagName.equals("input")){
-                //TODO do something here
-            }
-            if(_element.hasText()){
-                if(_element.TagName.equals("a")){
-                    _allLocators.add(new Locator(ByOption.LinkText, _element.get_text()));
-                }
-                else{
-                    _allLocators.add(new Locator(ByOption.XPath, String.format("//%s[contains(text(), '%s')]", _element.TagName, _element.get_text())));
-                }
+            else{
+                //TODO buid a locator with returned attributes
             }
         }
-        _element.setLocators(_allLocators);
     }
 
-    //TODO move this to a new class
+    //TODO This should be faster since we're not building multiple locators for the same element
     private void TestLocator(Locator locator){
         //First we try and find the element - then make sure there's only one element found with that locator.
 

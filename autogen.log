@@ -1,0 +1,28 @@
+May 28, 2015 4:11:01 PM com.vortest.autogen.autogen_logging log
+INFO: Here's a log sucker!
+May 28, 2015 4:11:01 PM com.vortest.autogen.autogen_logging log
+INFO: Crawler Opening Browser...
+May 28, 2015 4:11:18 PM com.vortest.autogen.autogen_logging log
+INFO: Found 44 TOTAL elements on the page
+May 28, 2015 4:11:27 PM com.vortest.autogen.autogen_logging log
+INFO: Found 24 elements with No children
+May 28, 2015 4:24:32 PM com.vortest.autogen.autogen_logging log
+INFO: Here's a log sucker!
+May 28, 2015 4:24:32 PM com.vortest.autogen.autogen_logging log
+INFO: Crawler Opening Browser...
+May 28, 2015 4:24:48 PM com.vortest.autogen.autogen_logging log
+INFO: Found 44 TOTAL elements on the page
+May 28, 2015 4:24:57 PM com.vortest.autogen.autogen_logging log
+INFO: Found 24 elements with No children
+May 28, 2015 4:38:35 PM com.vortest.autogen.autogen_logging log
+INFO: Here's a log sucker!
+May 28, 2015 4:38:35 PM com.vortest.autogen.autogen_logging log
+INFO: Crawler Opening Browser...
+May 28, 2015 4:39:27 PM com.vortest.autogen.autogen_logging log
+INFO: Here's a log sucker!
+May 28, 2015 4:39:27 PM com.vortest.autogen.autogen_logging log
+INFO: Crawler Opening Browser...
+May 28, 2015 4:40:46 PM com.vortest.autogen.autogen_logging log
+INFO: Here's a log sucker!
+May 28, 2015 4:40:46 PM com.vortest.autogen.autogen_logging log
+INFO: Crawler Opening Browser...

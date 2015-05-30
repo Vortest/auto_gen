@@ -6,6 +6,7 @@ import com.vortest.autogen.Locator;
 import org.openqa.selenium.*;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +31,7 @@ public class Element {
         _driver = Crawler.getDriver();
         elementPreProcessor();
         if(isInteractive()){
-            getAttributes();
+            buildAttributes();
             _parent = _element.findElement(By.xpath(".."));
         }
     }
@@ -70,12 +71,22 @@ public class Element {
         return isactive;
     }
 
-    private void getAttributes(){
+    private void buildAttributes(){
         //This little chunklet will get all the attributes for a given element
         Attributes = (Map) ((JavascriptExecutor)_driver).executeScript("var items = {}; " +
                 "for (index = 0; index < arguments[0].attributes.length;" +
                 " ++index) { items[arguments[0].attributes[index].name] = arguments[0].attributes[index].value }; " +
                 "return items;", _element);
+    }
+    public List<Map> getAttribute(int numAttributes){
+        //This function will try and return notable attributes first before returning other attributes
+        //Notable attributes Type, Value, Name, ClassName
+        List<Map> matchingAttributes = new ArrayList<Map>();
+        //TODO need to check that the list of attributes contains enough attributes to return
+        //TODO needs to be more than 1 unless it's ID
+
+
+        return matchingAttributes;
     }
 
     public Element getParent(){

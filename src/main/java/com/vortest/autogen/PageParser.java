@@ -18,10 +18,7 @@ public class PageParser {
     private List<String> childHTML;
 
     public PageParser(){
-        parentHTML = new ArrayList<String>();
-        childHTML = new ArrayList<String>();
-        getAllElements();
-        getChildelements();
+
     }
 
     public void getAllElements(){
@@ -29,7 +26,6 @@ public class PageParser {
         _allWebElements = new ArrayList<WebElement>();
         _allWebElements = Crawler.getDriver().findElements(By.cssSelector("body *"));
         for(int x = 0; x < _allWebElements.size(); x++){
-            parentHTML.add(_allWebElements.get(x).getAttribute("outerHTML"));
             Element anElement = new Element(_allWebElements.get(x));
             _parentElements.add(anElement);
         }
@@ -42,7 +38,6 @@ public class PageParser {
         for(int i = 0; i < _parentElements.size(); i++){
             //check to see if the element has a child
             if(_allWebElements.get(i).findElements(By.cssSelector("*")).isEmpty()){
-                childHTML.add(_allWebElements.get(i).getAttribute("outerHTML"));
                 Element childele = new Element(_allWebElements.get(i));
                 _childElements.add(childele);
             }
@@ -51,25 +46,10 @@ public class PageParser {
         autogen_logging.log(String.format("Found %s elements with No children", _childElements.size()));
 
         //TODO here's where i'm tinkering
-        testElements();
-    }
-
-    public void testElements(){
-        //So every element in the childelements list should be present in the all elements list
-        int checksum = 0;
-        //Child elements should be less than all elements
-        if(parentHTML.size() > childHTML.size()){
-            System.out.println("All elements contains more than child elements.");
-            for(int x = 0; x < childHTML.size(); x++){
-                if(parentHTML.contains(childHTML.get(x))){
-                    checksum += 1;
-                }
-            }
-
-        }
-        System.out.println(String.format("Childelements: %s  FoundChildren: %s", _childElements.size(), checksum));
 
     }
+
+
 
     public void getSource2(){
         //TODO This is the beginings of the page object storage
