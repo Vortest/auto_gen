@@ -8,10 +8,12 @@ import org.openqa.selenium.*;
 
 import java.util.*;
 
-public class Element {
+public class Element implements WebElement {
     public static final int MAXLOCATORS = 5;
 
-    private WebElement _parent;
+    private Element _parent;
+    private List<Element> _children;
+
     private WebElement _element;
     private WebDriver _driver;
     public Map Attributes;
@@ -28,10 +30,7 @@ public class Element {
         _element = ele;
         _driver = Crawler.getDriver();
         elementPreProcessor();
-        if(isInteractive()){
-            buildAttributes();
-            _parent = _element.findElement(By.xpath(".."));
-        }
+        buildAttributes();
     }
 
     private void elementPreProcessor() {
@@ -40,9 +39,14 @@ public class Element {
         _isEnabled = _element.isEnabled();
         _text = _element.getText();
         _screenLocation = _element.getLocation();
-        if(_screenLocation.getX() > 0 && _screenLocation.getY() > 0){
+        if(_element.getSize().getHeight() > 1 && _element.getSize().getWidth() > 1){
             _isOnscreen = true;
         }
+    }
+
+    public Element get_parent(){
+        _parent = new Element(_element.findElement(By.xpath("..")));
+        return _parent;
     }
 
     public boolean hasText(){
@@ -111,11 +115,50 @@ public class Element {
         return matchingAttributes;
     }
 
-    public Element getParent(){
-        //This will return the parent element of the current element
-        return new Element(_element.findElement(By.xpath("..")));
+    public void setLocators(List<Locator> locators){
+        _locators = locators;
+    }
+    public List<Locator> get_locators(){
+        if(_locators == null){
+            _locators = new ArrayList<Locator>();
+        }
+        return _locators;
     }
 
+    public List<Element> FindElements(By by){
+        List<Element> elements = new ArrayList<Element>();
+        List<WebElement> webElements = _element.findElements(by);
+        for(Iterator<WebElement> i = webElements.iterator(); i.hasNext();){
+            elements.add(new Element(i.next()));
+        }
+        return elements;
+    }
+
+    public Element FindElement(By by){
+        return new Element(_element.findElement(by));
+    }
+    //***************************
+    //Impemented Methods
+    //**************************
+    public void click() {
+        _element.click();
+    }
+
+    public void submit() {
+        _element.submit();
+    }
+
+    public void sendKeys(CharSequence... charSequences) {
+        _element.sendKeys(charSequences);
+    }
+
+    public void clear() {
+        _element.clear();
+    }
+
+    public String getTagName() {
+       return _element.getTagName();
+    }
 
     public String getAttribute(String key){
         String value = "";
@@ -125,11 +168,42 @@ public class Element {
         return value;
     }
 
-    public void setLocators(List<Locator> locators){
-        _locators = locators;
+    public boolean isSelected() {
+        return _element.isSelected();
     }
-    public List<Locator> get_locators(){
-        return _locators;
+
+    public boolean isEnabled() {
+        return _element.isEnabled();
     }
+
+    public String getText() {
+        return _element.getText();
+    }
+
+    public List<WebElement> findElements(By by) {
+        return _element.findElements(by);
+    }
+
+    public WebElement findElement(By by) {
+        return _element.findElement(by);
+    }
+
+    public boolean isDisplayed() {
+        return _element.isDisplayed();
+    }
+
+    public Point getLocation() {
+        return _element.getLocation();
+    }
+
+    public Dimension getSize() {
+        return _element.getSize();
+    }
+
+    public String getCssValue(String s) {
+        return _element.getCssValue(s);
+    }
+
+
 
 }

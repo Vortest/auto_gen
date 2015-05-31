@@ -28,21 +28,24 @@ public class LocatorBuilder {
         //I'm thinking we should just build a locator for everything
         //With an xpath containing several attributes
         //This way we shouldn't have to build multiple locators just one unique one
-        if(_element.isInteractive()) {
+        boolean elementInteractive = _element.isInteractive();
+        boolean parentInteractive = _element.get_parent().isInteractive();
+        if(_element.isInteractive() || _element.get_parent().isInteractive()) {
             if (_element.Attributes.containsKey("id")) {//This locator should always be unique
                 _allLocators.add(new Locator(ByOption.Id, _element.getAttribute("id")));
             }
             else{
                 HashMap<String, String> useableAttributes = _element.getAttributes();
                 String xpath = "//" + _element.TagName;
-                Iterator fuckyou = useableAttributes.entrySet().iterator();
-                while(fuckyou.hasNext()){
-                    Map.Entry keyvalpare = (Map.Entry)fuckyou.next();
+                Iterator iterator = useableAttributes.entrySet().iterator();
+                while(iterator.hasNext()){
+                    Map.Entry keyvalpare = (Map.Entry)iterator.next();
                     xpath += String.format("[@%s='%s']", keyvalpare.getKey(), keyvalpare.getValue());
-                    fuckyou.remove();
+                    iterator.remove();
                 }
-                System.out.print(xpath);
+                _allLocators.add(new Locator(ByOption.XPath, xpath));
             }
+            _element.setLocators(_allLocators);
         }
     }
 

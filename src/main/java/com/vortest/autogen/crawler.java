@@ -16,7 +16,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Crawler {
-    private static WebDriver driver;
+    private static Driver driver;
     private String baseUrl;
 
     public Crawler(String startURL){
@@ -26,14 +26,14 @@ public class Crawler {
     }
 
     public void openBrowser() {
-        driver = new FirefoxDriver();
+        driver = new Driver();
         driver.get(baseUrl);
 
         //need to check that the page is done loading
         PageParser parse = new PageParser();
     }
 
-    public static WebDriver getDriver(){
+    public static Driver getDriver(){
         return driver;
     }
 
