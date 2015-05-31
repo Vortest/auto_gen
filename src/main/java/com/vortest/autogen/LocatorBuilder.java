@@ -3,8 +3,7 @@ package com.vortest.autogen;
 import com.vortest.autogen.Element.Element;
 import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 
 public class LocatorBuilder {
@@ -34,7 +33,15 @@ public class LocatorBuilder {
                 _allLocators.add(new Locator(ByOption.Id, _element.getAttribute("id")));
             }
             else{
-                //TODO buid a locator with returned attributes
+                HashMap<String, String> useableAttributes = _element.getAttributes();
+                String xpath = "//" + _element.TagName;
+                Iterator fuckyou = useableAttributes.entrySet().iterator();
+                while(fuckyou.hasNext()){
+                    Map.Entry keyvalpare = (Map.Entry)fuckyou.next();
+                    xpath += String.format("[@%s='%s']", keyvalpare.getKey(), keyvalpare.getValue());
+                    fuckyou.remove();
+                }
+                System.out.print(xpath);
             }
         }
     }

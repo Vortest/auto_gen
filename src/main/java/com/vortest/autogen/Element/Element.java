@@ -6,9 +6,7 @@ import com.vortest.autogen.Locator;
 import org.openqa.selenium.*;
 
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Element {
     public static final int MAXLOCATORS = 5;
@@ -78,13 +76,37 @@ public class Element {
                 " ++index) { items[arguments[0].attributes[index].name] = arguments[0].attributes[index].value }; " +
                 "return items;", _element);
     }
-    public List<Map> getAttribute(int numAttributes){
+    public HashMap<String, String> getAttributes(){
         //This function will try and return notable attributes first before returning other attributes
         //Notable attributes Type, Value, Name, ClassName
-        List<Map> matchingAttributes = new ArrayList<Map>();
-        //TODO need to check that the list of attributes contains enough attributes to return
-        //TODO needs to be more than 1 unless it's ID
+        HashMap<String, String> matchingAttributes = new HashMap<String, String>();
 
+        if(Attributes.size() > 0){
+            if(Attributes.containsKey("name")){
+                matchingAttributes.put("name", (String) Attributes.get("name"));
+            }
+            if(Attributes.containsKey("type")){
+                matchingAttributes.put("type", (String) Attributes.get("type"));
+            }
+            if(Attributes.containsKey("value")){
+                matchingAttributes.put("value", (String) Attributes.get("value"));
+            }
+            if(Attributes.containsKey("class")){
+                matchingAttributes.put("class", (String) Attributes.get("class"));
+            }
+            else{
+                //get at least 3 random attributes if we don't have at least 3 attributes
+                if(matchingAttributes.size() <= 2 && Attributes.size() >= 3){
+                    //We only want the matchingAttributes return 3 values OR match the Attributes length if 3 or less
+                    for(int i = 0; i < 3; i++){
+                        Random random = new Random();
+                        List<String> keys = new ArrayList<String>(Attributes.keySet());
+                        String randomKey = keys.get(random.nextInt(keys.size()));
+                        matchingAttributes.put(randomKey, (String) Attributes.get(randomKey));
+                    }
+                }
+            }
+        }
 
         return matchingAttributes;
     }

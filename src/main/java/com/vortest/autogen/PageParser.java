@@ -18,6 +18,8 @@ public class PageParser {
     private List<String> childHTML;
 
     public PageParser(){
+        getAllElements();
+        getChildelements();
 
     }
 
@@ -46,7 +48,7 @@ public class PageParser {
         autogen_logging.log(String.format("Found %s elements with No children", _childElements.size()));
 
         //TODO here's where i'm tinkering
-
+        getSource2();
     }
 
 
@@ -58,7 +60,8 @@ public class PageParser {
         for(int i = 0; i < _childElements.size(); i++){
             LocatorBuilder locbuild = new LocatorBuilder(_childElements.get(i));
         }
-        for(int i = 0; i < _childElements.size(); i++){
+
+        /*for(int i = 0; i < _childElements.size(); i++){
             System.out.println("***ELEMENT: " + _childElements.get(i).toString());
             if(_childElements.get(i).hasText()){
                 System.out.println("Text: " + _childElements.get(i).get_text());
@@ -69,7 +72,7 @@ public class PageParser {
             for(int x = 0; x < _childElements.get(i).get_locators().size(); x++){
                 System.out.print("Locators: " + _childElements.get(i).get_locators().get(x).toString());
             }
-        }
+        }*/
     }
 
 
