@@ -49,6 +49,11 @@ public class Element implements WebElement {
         return _parent;
     }
 
+    public List<Element> get_children(By by){
+        _children = this.FindElements(by);
+        return _children;
+    }
+
     public boolean hasText(){
         boolean text = false;
         if(!_text.equals("")){

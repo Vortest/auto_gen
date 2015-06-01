@@ -10,18 +10,19 @@ public class LocatorBuilder {
     private Element _element;
     private List<Locator> _allLocators;
 
-    private List<String> goodLocators;
+    private List<Locator> goodLocators;
     private List<String> badLocators;
     private List<String> duplicateLocators;
 
     //because Java doesn't support default argument values - WTF?
     public LocatorBuilder(Element we){
         _allLocators = new ArrayList<Locator>();
-        goodLocators = new ArrayList<String>();
+        goodLocators = new ArrayList<Locator>();
         badLocators = new ArrayList<String>();
         duplicateLocators = new ArrayList<String>();
         _element = we;
         buildLocators();
+        TestLocators();
     }
 
     private void buildLocators() {
@@ -34,6 +35,9 @@ public class LocatorBuilder {
             if (_element.Attributes.containsKey("id")) {//This locator should always be unique
                 _allLocators.add(new Locator(ByOption.Id, _element.getAttribute("id")));
             }
+            if(!_element.getText().equals("")){
+                _allLocators.add(new Locator(ByOption.XPath, String.format("//*[text()[contains(., '%s')]]", _element.getText())));
+            }
             else{
                 HashMap<String, String> useableAttributes = _element.getAttributes();
                 String xpath = "//" + _element.TagName;
@@ -45,36 +49,29 @@ public class LocatorBuilder {
                 }
                 _allLocators.add(new Locator(ByOption.XPath, xpath));
             }
-            _element.setLocators(_allLocators);
+            //_element.setLocators(_allLocators);
         }
+
     }
 
     //TODO This should be faster since we're not building multiple locators for the same element
-    private void TestLocator(Locator locator){
+    private void TestLocators(){
         //First we try and find the element - then make sure there's only one element found with that locator.
+        for(int x = 0; x < _allLocators.size(); x++){
+            try{
+                List<WebElement> found = Crawler.getDriver().findElements(_allLocators.get(x).ToBy());
+                if(found.size() == 1){
+                    autogen_logging.log("Found good locator" + _allLocators.get(x).ToBy().toString());
+                    goodLocators.add(_allLocators.get(x));
+                }
+            }
+            catch (Exception e){
+                autogen_logging.error(e.toString());
+            }
 
-        try {
-            List<WebElement> foundElements = Crawler.getDriver().findElements(locator.ToBy());
-            if(foundElements.size() == 1){
-                //Found a unique locator!
-                goodLocators.add(locator.ToBy().toString());
-            }
-            if(foundElements.size() == 0){
-                //Found NO goodLocators you suck!
-                badLocators.add(locator.ToBy().toString());
-            }
-            if(foundElements.size() > 1){
-                //Found to many locators
-                duplicateLocators.add(locator.ToBy().toString());
-            }
         }
-        catch (Exception e){
-            //The locator was not valid - TODO log this
-        }
+        _element.setLocators(goodLocators);
     }
 
-    public List<String> getGoodLocators(){
-        return goodLocators;
-    }
 
 }
