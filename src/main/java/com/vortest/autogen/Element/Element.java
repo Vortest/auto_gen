@@ -9,8 +9,6 @@ import org.openqa.selenium.*;
 import java.util.*;
 
 public class Element implements WebElement {
-    public static final int MAXLOCATORS = 5;
-
     private Element _parent;
     private List<Element> _children;
 
@@ -23,8 +21,6 @@ public class Element implements WebElement {
     private boolean _isVisible;
     private boolean _isEnabled;
     private boolean _isOnscreen;
-    private Point _screenLocation;
-    private String _text;
 
     public Element(WebElement ele){
         _element = ele;
@@ -37,8 +33,7 @@ public class Element implements WebElement {
         TagName = _element.getTagName();
         _isVisible = _element.isDisplayed();
         _isEnabled = _element.isEnabled();
-        _text = _element.getText();
-        _screenLocation = _element.getLocation();
+
         if(_element.getSize().getHeight() > 1 && _element.getSize().getWidth() > 1){
             _isOnscreen = true;
         }
@@ -52,22 +47,6 @@ public class Element implements WebElement {
     public List<Element> get_children(By by){
         _children = this.FindElements(by);
         return _children;
-    }
-
-    public boolean hasText(){
-        boolean text = false;
-        if(!_text.equals("")){
-            text = true;
-        }
-        return text;
-    }
-
-    public String get_text(){
-        String text = null;
-        if(hasText()){
-            text = _text;
-        }
-        return text;
     }
 
     public boolean isInteractive(){
@@ -145,6 +124,7 @@ public class Element implements WebElement {
     public Element FindElement(By by){
         return new Element(_element.findElement(by));
     }
+
     //***************************
     //Impemented Methods
     //**************************
