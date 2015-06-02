@@ -1,6 +1,9 @@
-package com.vortest.autogen;
+package com.vortest.autogen.Page;
 
 import com.vortest.autogen.Element.Element;
+import com.vortest.autogen.Element.LocatorBuilder;
+import com.vortest.autogen.autogen_logging;
+import com.vortest.autogen.crawler;
 import org.openqa.selenium.*;
 
 import java.util.ArrayList;
@@ -11,21 +14,8 @@ public class PageParser {
     private WebDriver driver;
     private List<Element> _allWebElements;
     private List<Element> _childElements;
-    private List<Element> _textElements;
-
-    //containers
-    private List<Element> _forms;
-    private List<Element> _tables;
-    private List<Element> _paragraphs;
-    private List<Element> _links;
 
     public PageParser(){
-        _forms = new ArrayList<Element>();
-        _tables = new ArrayList<Element>();
-        _paragraphs = new ArrayList<Element>();
-        _links = new ArrayList<Element>();
-        _textElements = new ArrayList<Element>();
-
         getAllElements();
         get_ImportantElements();
     }

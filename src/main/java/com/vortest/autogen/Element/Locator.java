@@ -1,5 +1,6 @@
-package com.vortest.autogen;
+package com.vortest.autogen.Element;
 
+import com.vortest.autogen.Element.ByOption;
 import org.openqa.selenium.By;
 
 public class Locator {
@@ -30,6 +31,8 @@ public class Locator {
                 return org.openqa.selenium.By.linkText(param);
             case PartialLinkText:
                 return org.openqa.selenium.By.partialLinkText(param);
+            case CssSelector:
+                return org.openqa.selenium.By.cssSelector(param);
             default:
                 return org.openqa.selenium.By.cssSelector(param);
         }

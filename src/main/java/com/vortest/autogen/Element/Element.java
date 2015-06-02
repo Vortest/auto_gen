@@ -2,7 +2,6 @@ package com.vortest.autogen.Element;
 
 
 import com.vortest.autogen.crawler;
-import com.vortest.autogen.Locator;
 import org.openqa.selenium.*;
 
 

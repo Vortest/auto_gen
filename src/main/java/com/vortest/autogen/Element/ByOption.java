@@ -1,4 +1,4 @@
-package com.vortest.autogen;
+package com.vortest.autogen.Element;
 
 public enum ByOption{
     XPath,

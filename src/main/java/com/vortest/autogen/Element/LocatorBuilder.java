@@ -1,6 +1,10 @@
-package com.vortest.autogen;
+package com.vortest.autogen.Element;
 
+import com.vortest.autogen.Element.ByOption;
 import com.vortest.autogen.Element.Element;
+import com.vortest.autogen.Element.Locator;
+import com.vortest.autogen.autogen_logging;
+import com.vortest.autogen.crawler;
 import org.openqa.selenium.WebElement;
 
 import java.util.*;
