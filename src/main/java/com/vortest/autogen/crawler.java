@@ -1,27 +1,15 @@
 package com.vortest.autogen;
 
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.WebDriver;
-
-import org.junit.*;
-import org.openqa.selenium.*;
-import java.io.IOException;
-import org.openqa.selenium.WebElement;
 import static junit.framework.Assert.assertEquals;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
 import static junit.framework.Assert.assertTrue;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class Crawler {
+public class crawler {
     private static Driver driver;
     private String baseUrl;
 
-    public Crawler(String startURL){
+    public crawler(String startURL){
         baseUrl = startURL;
-        autogen_logging.log(Crawler.class.getSimpleName() + " Opening Browser...");
+        autogen_logging.log(crawler.class.getSimpleName() + " Opening Browser...");
         openBrowser();
     }
 

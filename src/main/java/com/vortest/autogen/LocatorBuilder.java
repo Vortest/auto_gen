@@ -44,7 +44,7 @@ public class LocatorBuilder {
                 Iterator iterator = useableAttributes.entrySet().iterator();
                 while(iterator.hasNext()){
                     Map.Entry keyvalpare = (Map.Entry)iterator.next();
-                    xpath += String.format("[@%s='%s']", keyvalpare.getKey(), keyvalpare.getValue());
+                    xpath += String.format("[@%s=\"%s\"]", keyvalpare.getKey(), keyvalpare.getValue());
                     iterator.remove();
                 }
                 _allLocators.add(new Locator(ByOption.XPath, xpath));
@@ -59,7 +59,7 @@ public class LocatorBuilder {
         //First we try and find the element - then make sure there's only one element found with that locator.
         for(int x = 0; x < _allLocators.size(); x++){
             try{
-                List<WebElement> found = Crawler.getDriver().findElements(_allLocators.get(x).ToBy());
+                List<WebElement> found = crawler.getDriver().findElements(_allLocators.get(x).ToBy());
                 if(found.size() == 1){
                     autogen_logging.log("Found good locator" + _allLocators.get(x).ToBy().toString());
                     goodLocators.add(_allLocators.get(x));

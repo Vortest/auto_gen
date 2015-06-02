@@ -1,7 +1,7 @@
 package com.vortest.autogen.Element;
 
 
-import com.vortest.autogen.Crawler;
+import com.vortest.autogen.crawler;
 import com.vortest.autogen.Locator;
 import org.openqa.selenium.*;
 
@@ -28,7 +28,7 @@ public class Element implements WebElement {
 
     public Element(WebElement ele){
         _element = ele;
-        _driver = Crawler.getDriver();
+        _driver = crawler.getDriver();
         elementPreProcessor();
         buildAttributes();
     }
@@ -102,6 +102,9 @@ public class Element implements WebElement {
             }
             if(Attributes.containsKey("class")){
                 matchingAttributes.put("class", (String) Attributes.get("class"));
+            }
+            if(Attributes.containsKey("href")){
+                matchingAttributes.put("href", (String) Attributes.get("href"));
             }
             else{
                 //get at least 3 random attributes if we don't have at least 3 attributes

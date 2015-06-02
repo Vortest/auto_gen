@@ -36,17 +36,17 @@ public class PageParser {
         _allWebElements = new ArrayList<Element>();
 /*
         //All forms have input fields
-        _forms = Crawler.getDriver().FindElements(By.cssSelector("body form"));
-        _tables = Crawler.getDriver().FindElements(By.cssSelector("body table"));
-        _paragraphs = Crawler.getDriver().FindElements(By.cssSelector("body p"));
-        _links = Crawler.getDriver().FindElements(By.cssSelector("body a"));
+        _forms = crawler.getDriver().FindElements(By.cssSelector("body form"));
+        _tables = crawler.getDriver().FindElements(By.cssSelector("body table"));
+        _paragraphs = crawler.getDriver().FindElements(By.cssSelector("body p"));
+        _links = crawler.getDriver().FindElements(By.cssSelector("body a"));
 
         get_childElements(_forms);
         get_childElements(_tables);
         get_childElements(_paragraphs);
         get_childElements(_links);
 */
-        _allWebElements = Crawler.getDriver().FindElements(By.cssSelector("body *"));
+        _allWebElements = crawler.getDriver().FindElements(By.cssSelector("body *"));
 
     }
 

@@ -2,12 +2,10 @@
  * Created by SethUrban on 5/24/15.
  */
 package com.vortest.autogen;
-import com.vortest.autogen.Crawler;
-import org.openqa.selenium.*;
 
 public class automation_engine {
     private static String entryURL;
-    public static Crawler crawl;
+    public static crawler crawl;
     private static final boolean DEBUG = true;
     private static autogen_logging log = new autogen_logging();
 
@@ -16,7 +14,7 @@ public class automation_engine {
         setupArgs(args);
         //call some class to setup the browser
         log.log("Here's a log sucker!");
-        crawl = new Crawler(entryURL);
+        crawl = new crawler(entryURL);
     }
 
     private static void setupArgs(String[] args) {
