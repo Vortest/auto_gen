@@ -1,11 +1,15 @@
 package com.vortest.autogen.Page;
 
+import com.google.gson.Gson;
 import com.vortest.autogen.Element.Element;
 import com.vortest.autogen.Element.LocatorBuilder;
 import com.vortest.autogen.autogen_logging;
+import com.vortest.autogen.config;
 import com.vortest.autogen.crawler;
 import org.openqa.selenium.*;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -73,8 +77,20 @@ public class PageParser {
         for(int i = 0; i < _childElements.size(); i++){
             LocatorBuilder locbuild = new LocatorBuilder(_childElements.get(i));
         }
-        Page thispage = new Page(_childElements);
-        thispage.savePage();
+        List<String> GSONSucksdick = new ArrayList<String>();
+        for(int x = 0; x < _childElements.size(); x++){
+            GSONSucksdick.add(_childElements.get(x).toString());
+        }
+        Page thispage = new Page(GSONSucksdick);
+        Gson gson = new Gson();
+        String json = gson.toJson(thispage);
+        try{
+            FileWriter writer = new FileWriter(config.JSONStore + "page.json");
+            writer.write(json);
+            writer.close();
+        }catch (IOException e){
+            autogen_logging.error(e.getStackTrace().toString());
+        }
     }
 
 
