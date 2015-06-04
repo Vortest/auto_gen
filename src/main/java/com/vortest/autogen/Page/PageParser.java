@@ -73,12 +73,8 @@ public class PageParser {
         for(int i = 0; i < _childElements.size(); i++){
             LocatorBuilder locbuild = new LocatorBuilder(_childElements.get(i));
         }
-        for(int i = 0; i < _childElements.size(); i++){
-            System.out.println(_childElements.get(i).toString() + "Locators: ");
-            for(int x = 0; x < _childElements.get(i).get_locators().size(); x++){
-                System.out.println(_childElements.get(i).get_locators().get(x).toString());
-            }
-        }
+        Page thispage = new Page(_childElements);
+        thispage.savePage();
     }
 
 

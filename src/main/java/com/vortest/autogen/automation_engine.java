@@ -19,7 +19,7 @@ public class automation_engine {
 
     private static void setupArgs(String[] args) {
         if(DEBUG){
-            entryURL = "http://adam.goucher.ca/parkcalc/";
+            entryURL = config.TestSite1;
         }
         else{
             if (args.length == 0){

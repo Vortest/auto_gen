@@ -13,7 +13,7 @@ public class autogen_logging {
 
     public autogen_logging(){
         try{
-            fh = new FileHandler("/Users/SethUrban/GitHub/VorTest/auto_gen/autogen.log", true);
+            fh = new FileHandler(config.logFile, true);
             log.addHandler(fh);
             SimpleFormatter formatter = new SimpleFormatter();
             fh.setFormatter(formatter);

@@ -1,5 +1,6 @@
 package com.vortest.autogen;
 
+import com.vortest.autogen.Page.Page;
 import com.vortest.autogen.Page.PageParser;
 
 import static junit.framework.Assert.assertEquals;

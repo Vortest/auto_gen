@@ -124,6 +124,12 @@ public class Element implements WebElement {
         return new Element(_element.findElement(by));
     }
 
+    @Override
+    public String toString(){
+        String json = "element[tag=" + TagName + ", locator=" + _locators.get(0).toString() + "]";
+
+        return json;
+    }
     //***************************
     //Impemented Methods
     //**************************
