@@ -10,5 +10,5 @@ public class Action {
     //2 - Text boxes is to enter text
     //3 - Radio buttons is to click them
     //4 - Drop down menus is to select something
-    
+    //Where do actions get stored?  With the element or the page?
 }

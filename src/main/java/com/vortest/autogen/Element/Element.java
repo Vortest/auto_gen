@@ -124,6 +124,15 @@ public class Element implements WebElement {
         return new Element(_element.findElement(by));
     }
 
+    public Locator getFirstLocator(){
+        if(_locators.size() > 0){
+            return _locators.get(0);
+        }
+        else{
+            return null;
+        }
+    }
+
 
     //***************************
     //Impemented Methods

@@ -81,7 +81,8 @@ public class PageParser {
 
     public Page get_page(){
         String pageTitle = crawler.getDriver().findElementByTagName("title").getText();
-        return new Page(pageTitle, _childElements);
+        String pageURL = crawler.getDriver().getCurrentUrl();
+        return new Page(pageTitle, pageURL, _childElements);
     }
 
 
