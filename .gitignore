@@ -14,3 +14,6 @@ hs_err_pid*
 
 .idea
 target/
+#my own log files
+autogen.log
+JSON_Obj/*

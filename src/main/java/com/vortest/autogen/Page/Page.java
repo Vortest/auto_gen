@@ -38,6 +38,8 @@ public class Page {
     public void getstate(){
         String state = State.encodeState(_url, _elements);
         System.out.print(state);
+        String decoded = State.decodeState(state);
+        System.out.print(decoded);
     }
     //need a way to determine the state of the page
 

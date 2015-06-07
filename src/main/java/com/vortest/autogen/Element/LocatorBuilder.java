@@ -15,14 +15,14 @@ public class LocatorBuilder {
     private List<Locator> _allLocators;
 
     private List<Locator> goodLocators;
-    private List<String> badLocators;
+    private List<Locator> badLocators;
     private List<String> duplicateLocators;
 
     //because Java doesn't support default argument values - WTF?
     public LocatorBuilder(Element we){
         _allLocators = new ArrayList<Locator>();
         goodLocators = new ArrayList<Locator>();
-        badLocators = new ArrayList<String>();
+        badLocators = new ArrayList<Locator>();
         duplicateLocators = new ArrayList<String>();
         _element = we;
         buildLocators();
@@ -33,14 +33,19 @@ public class LocatorBuilder {
         //I'm thinking we should just build a locator for everything
         //With an xpath containing several attributes
         //This way we shouldn't have to build multiple locators just one unique one
-        boolean elementInteractive = _element.isInteractive();
-        boolean parentInteractive = _element.get_parent().isInteractive();
         if(_element.isInteractive() || _element.get_parent().isInteractive()) {
             if (_element.Attributes.containsKey("id")) {//This locator should always be unique
                 _allLocators.add(new Locator(ByOption.Id, _element.getAttribute("id")));
             }
+            //This one might not fly for all elements
             if(!_element.getText().equals("")){
                 _allLocators.add(new Locator(ByOption.XPath, String.format("//*[text()[contains(., '%s')]]", _element.getText())));
+            }
+            if(_element.get_parent().TagName.equals("a")){
+                Element parent = _element.get_parent();
+                LocatorBuilder parentLoc = new LocatorBuilder(parent);
+                Locator childlocator = new Locator(ByOption.XPath, parent.getFirstLocator().param + "/" +_element.TagName );
+                _allLocators.add(childlocator);
             }
             else{
                 HashMap<String, String> useableAttributes = _element.getAttributes();
@@ -53,6 +58,7 @@ public class LocatorBuilder {
                 }
                 _allLocators.add(new Locator(ByOption.XPath, xpath));
             }
+
             //_element.setLocators(_allLocators);
         }
 
@@ -68,11 +74,14 @@ public class LocatorBuilder {
                     autogen_logging.log("Found good locator" + _allLocators.get(x).ToBy().toString());
                     goodLocators.add(_allLocators.get(x));
                 }
+                if(found.size() > 1){
+                    autogen_logging.log("Multiple Locators found for element");
+                    badLocators.add(_allLocators.get(x));
+                }
             }
             catch (Exception e){
                 autogen_logging.error(e.toString());
             }
-
         }
         _element.setLocators(goodLocators);
     }

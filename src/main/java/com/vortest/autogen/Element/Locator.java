@@ -17,6 +17,7 @@ public class Locator {
         return ToBy().toString();
     }
 
+
     public By ToBy(){
         switch(By){
             case ClassName:

@@ -25,10 +25,15 @@ public class State {
         for(int x = 0; x < elements.size(); x++){
             pageState += elements.get(x).TagName;
             pageState += elements.get(x).getText();
-
         }
-
+        System.out.println("Page state: " + pageState);
         return Base64.encodeBase64String(pageState.getBytes());
+    }
+
+    public static String decodeState(String encoded){
+        byte[] decoded = Base64.decodeBase64(encoded);
+        return new String(decoded);
+
     }
 
 
