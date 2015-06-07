@@ -77,20 +77,11 @@ public class PageParser {
         for(int i = 0; i < _childElements.size(); i++){
             LocatorBuilder locbuild = new LocatorBuilder(_childElements.get(i));
         }
-        List<String> GSONSucksdick = new ArrayList<String>();
-        for(int x = 0; x < _childElements.size(); x++){
-            GSONSucksdick.add(_childElements.get(x).toString());
-        }
-        Page thispage = new Page(GSONSucksdick);
-        Gson gson = new Gson();
-        String json = gson.toJson(thispage);
-        try{
-            FileWriter writer = new FileWriter(config.JSONStore + "page.json");
-            writer.write(json);
-            writer.close();
-        }catch (IOException e){
-            autogen_logging.error(e.getStackTrace().toString());
-        }
+    }
+
+    public Page get_page(){
+        String pageTitle = crawler.getDriver().findElementByTagName("title").getText();
+        return new Page(pageTitle, _childElements);
     }
 
 

@@ -19,20 +19,22 @@ public class Page {
     //A single page is determined by the title and URL of the page as well as header information
     //A page can have multiple states depending on change made to the page
 
+    private List<Element> _elements;
+    private String _title;
 
-    private List<String> elementstrings;
+    public Page(String title, List<Element> elements){
+        _elements = elements;
+    }
 
-    public Page(List<String> elements){
-
-        elementstrings = elements;
-
+    public void add_element(Element element){
+        _elements.add(element);
+    }
+    public void add_elements(List<Element> elements){
+        _elements.addAll(elements);
     }
 
 
 
-    @Override
-    public String toString(){
-        String json_String = "PageObjectName [elements=" + elementstrings + "]";
-        return json_String;
-    }
+
+
 }
