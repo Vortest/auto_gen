@@ -22,10 +22,14 @@ public class Page {
     private List<Element> _elements;
     private String _title;
     private String _url;
+    private List<String> _states;
 
     public Page(String title, String url, List<Element> elements){
+        _states = new ArrayList<String>();
         _elements = elements;
         _url = url;
+        //Set the current page state
+        _states.add(State.encodeState(_url, _elements));
     }
 
     public void add_element(Element element){
@@ -35,13 +39,7 @@ public class Page {
         _elements.addAll(elements);
     }
 
-    public void getstate(){
-        String state = State.encodeState(_url, _elements);
-        System.out.print(state);
-        String decoded = State.decodeState(state);
-        System.out.print(decoded);
-    }
-    //need a way to determine the state of the page
+
 
 
 

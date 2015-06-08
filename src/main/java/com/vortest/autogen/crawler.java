@@ -23,7 +23,7 @@ public class crawler {
         //need to check that the page is done loading
         PageParser parse = new PageParser();
         Page page = parse.get_page();
-        page.getstate();
+
     }
 
     public static Driver getDriver(){

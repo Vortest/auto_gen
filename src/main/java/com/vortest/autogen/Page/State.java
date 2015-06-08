@@ -25,6 +25,7 @@ public class State {
         for(int x = 0; x < elements.size(); x++){
             pageState += elements.get(x).TagName;
             pageState += elements.get(x).getText();
+            pageState += elements.get(x).getFirstLocator().toString();
         }
         System.out.println("Page state: " + pageState);
         return Base64.encodeBase64String(pageState.getBytes());
