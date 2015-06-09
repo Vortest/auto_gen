@@ -1,8 +1,10 @@
 /**
  * Created by SethUrban on 5/24/15.
  */
-package com.vortest.autogen;
+package com.vortest.autogen.UI;
 
+import com.vortest.autogen.autogen_logging;
+import com.vortest.autogen.crawler;
 import org.apache.commons.validator.routines.UrlValidator;
 
 import javax.swing.*;
@@ -28,7 +30,7 @@ public class automation_engine extends JFrame {
 
 
 
-    public automation_engine() throws HeadlessException {
+    public automation_engine()  {
 
         scan_button.addMouseListener(new MouseAdapter() {
             @Override
@@ -54,6 +56,7 @@ public class automation_engine extends JFrame {
     }
 
     public static void main(String[] args) {
+
         initUI();
     }
 
