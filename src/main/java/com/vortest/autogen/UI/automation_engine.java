@@ -28,6 +28,7 @@ public class automation_engine extends JFrame {
     private JProgressBar scan_progress;
     private JLabel error_message_label;
     public JTextArea log_textarea;
+    private JScrollPane log_pane;
     private crawler crawl;
 
 
@@ -36,12 +37,17 @@ public class automation_engine extends JFrame {
         url_textfield.setText(config.TestSite1);
         DefaultCaret logCaret = (DefaultCaret) log_textarea.getCaret();
         logCaret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+        log_pane.setVisible(false);
+        scan_progress.setVisible(false);
 
         scan_button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if(validURL(url_textfield.getText())){
                     clear_error();
+                    log_pane.setVisible(true);
+                    scan_progress.setVisible(true);
+                    scan_progress.setIndeterminate(true);
                     autogen_logging.setform(automation_engine.this);
                     Runnable run = new crawler(url_textfield.getText());
                     Thread thread = new Thread(run);
@@ -68,7 +74,6 @@ public class automation_engine extends JFrame {
         frame.setSize(600, 400);
         frame.setAlwaysOnTop(true);
         frame.setLocationRelativeTo(null);
-
         frame.setVisible(true);
     }
 

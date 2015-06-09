@@ -22,7 +22,7 @@ public class crawler implements Runnable {
     public void openBrowser() {
         driver = new Driver();
         driver.get(baseUrl);
-
+        autogen_logging.log(crawler.class.getSimpleName() + " Loaded browser...");
         //need to check that the page is done loading
         PageParser parse = new PageParser();
         Page page = parse.get_page();

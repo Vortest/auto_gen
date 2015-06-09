@@ -27,6 +27,7 @@ public class PageParser {
 
     public void getAllElements(){
         _allWebElements = new ArrayList<Element>();
+        autogen_logging.log(PageParser.class.getSimpleName() + " Scanning for elements...");
         _allWebElements = crawler.getDriver().FindElements(By.cssSelector("body *"));
     }
 
