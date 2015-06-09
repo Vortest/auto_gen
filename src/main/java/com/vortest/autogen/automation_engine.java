@@ -3,8 +3,81 @@
  */
 package com.vortest.autogen;
 
-public class automation_engine {
-    private static String entryURL;
+import org.apache.commons.validator.routines.UrlValidator;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+
+public class automation_engine extends JFrame {
+
+    private JPanel main_panel;
+    private JLabel app_label;
+    private JPanel footer_panel;
+    private JPanel content_panel;
+    private JTextField url_textfield;
+    private JButton scan_button;
+    private JProgressBar scan_progress;
+    private JLabel error_message_label;
+    private crawler crawl;
+
+    public automation_engine() throws HeadlessException {
+
+        scan_button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(validURL(url_textfield.getText())){
+                    clear_error();
+                    crawl = new crawler(url_textfield.getText());
+                }
+                else{
+                    setError("Invalid URL Provided!");
+                }
+
+            }
+        });
+    }
+
+    public static void main(String[] args) {
+        initUI();
+    }
+
+    private static void initUI(){
+        JFrame frame = new JFrame("automation_engine");
+        frame.setContentPane(new automation_engine().main_panel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 400);
+        frame.setAlwaysOnTop(true);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+
+    private boolean validURL(String url){
+        boolean URL_valid = false;
+        String[] schemes = {"http", "https"};
+        UrlValidator urlValidator = new UrlValidator(schemes);
+        if(urlValidator.isValid(url)){
+            URL_valid = true;
+        }
+        return URL_valid;
+    }
+
+    private void setError(String error){
+        error_message_label.setText(error);
+        error_message_label.setForeground(new Color(247, 5, 37));
+        error_message_label.setVisible(true);
+    }
+
+    private void clear_error(){
+        error_message_label.setVisible(false);
+    }
+
+
+
+
+    /*private static String entryURL;
     public static crawler crawl;
     private static final boolean DEBUG = true;
     private static autogen_logging log = new autogen_logging();
@@ -31,5 +104,5 @@ public class automation_engine {
                 entryURL = args[0];
             }
         }
-    }
+    }*/
 }
