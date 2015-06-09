@@ -7,6 +7,8 @@ import org.apache.commons.validator.routines.UrlValidator;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -21,7 +23,10 @@ public class automation_engine extends JFrame {
     private JButton scan_button;
     private JProgressBar scan_progress;
     private JLabel error_message_label;
+    public JTextArea log_textarea;
     private crawler crawl;
+
+
 
     public automation_engine() throws HeadlessException {
 
@@ -30,11 +35,19 @@ public class automation_engine extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 if(validURL(url_textfield.getText())){
                     clear_error();
-                    crawl = new crawler(url_textfield.getText());
+                    autogen_logging.setform(automation_engine.this);
+                    Runnable run = new crawler(url_textfield.getText());
+                    Thread thread = new Thread(run);
+                    thread.start();
                 }
                 else{
                     setError("Invalid URL Provided!");
                 }
+
+            }
+        });
+        scan_button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
 
             }
         });
@@ -72,6 +85,10 @@ public class automation_engine extends JFrame {
 
     private void clear_error(){
         error_message_label.setVisible(false);
+    }
+
+    public void update_ui_Log(String uilog){
+        log_textarea.append(uilog + "\n");
     }
 
 

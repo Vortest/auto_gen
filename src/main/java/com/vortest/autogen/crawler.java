@@ -6,12 +6,15 @@ import com.vortest.autogen.Page.PageParser;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
-public class crawler {
+public class crawler implements Runnable {
     private static Driver driver;
     private String baseUrl;
 
     public crawler(String startURL){
         baseUrl = startURL;
+    }
+
+    public void run() {
         autogen_logging.log(crawler.class.getSimpleName() + " Opening Browser...");
         openBrowser();
     }
@@ -29,6 +32,7 @@ public class crawler {
     public static Driver getDriver(){
         return driver;
     }
+
 
 
 }

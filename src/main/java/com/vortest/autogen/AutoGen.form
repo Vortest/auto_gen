@@ -36,6 +36,8 @@
       </grid>
       <grid id="102c6" binding="content_panel" layout-manager="FormLayout">
         <rowspec value="center:d:noGrow"/>
+        <rowspec value="top:3dlu:noGrow"/>
+        <rowspec value="center:d:grow"/>
         <colspec value="fill:d:noGrow"/>
         <colspec value="left:4dlu:noGrow"/>
         <colspec value="fill:d:grow"/>
@@ -73,6 +75,18 @@
             </constraints>
             <properties>
               <text value="Scan"/>
+            </properties>
+          </component>
+          <component id="84506" class="javax.swing.JTextArea" binding="log_textarea">
+            <constraints>
+              <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="50"/>
+              </grid>
+              <forms defaultalign-horz="false" defaultalign-vert="false"/>
+            </constraints>
+            <properties>
+              <editable value="false"/>
+              <enabled value="true"/>
             </properties>
           </component>
         </children>
