@@ -4,10 +4,12 @@
 package com.vortest.autogen.UI;
 
 import com.vortest.autogen.autogen_logging;
+import com.vortest.autogen.config;
 import com.vortest.autogen.crawler;
 import org.apache.commons.validator.routines.UrlValidator;
 
 import javax.swing.*;
+import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,6 +33,9 @@ public class automation_engine extends JFrame {
 
 
     public automation_engine()  {
+        url_textfield.setText(config.TestSite1);
+        DefaultCaret logCaret = (DefaultCaret) log_textarea.getCaret();
+        logCaret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 
         scan_button.addMouseListener(new MouseAdapter() {
             @Override
@@ -48,11 +53,7 @@ public class automation_engine extends JFrame {
 
             }
         });
-        scan_button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
 
-            }
-        });
     }
 
     public static void main(String[] args) {
@@ -67,6 +68,7 @@ public class automation_engine extends JFrame {
         frame.setSize(600, 400);
         frame.setAlwaysOnTop(true);
         frame.setLocationRelativeTo(null);
+
         frame.setVisible(true);
     }
 

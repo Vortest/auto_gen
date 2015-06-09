@@ -9,7 +9,7 @@ import java.util.List;
 public class config {
 
     //Log File Settings
-    public static final String logFile = "/Users/SethUrban/GitHub/VorTest/auto_gen/autogen.log";
+    public static final String logFile = "/Users/sethurban/GitHub/Vortest/auto_gen/autogen.log";
 
     //Test Sites
     public static final String TestSite1 = "http://adam.goucher.ca/parkcalc/";

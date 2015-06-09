@@ -31,8 +31,14 @@ public class autogen_logging {
 
     public static void log(String message){
         log.info(message);
+
         if(!autogen.equals(null)){
             autogen.log_textarea.append(message + "\n");
+            try {
+                autogen.log_textarea.setCaretPosition(autogen.log_textarea.getLineStartOffset(autogen.log_textarea.getLineCount() - 1));
+            }catch (Exception e){
+
+            }
         }
     }
 
