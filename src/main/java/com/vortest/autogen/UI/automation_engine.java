@@ -3,6 +3,7 @@
  */
 package com.vortest.autogen.UI;
 
+import com.vortest.autogen.DataTranslators.connection_test;
 import com.vortest.autogen.autogen_logging;
 import com.vortest.autogen.config;
 import com.vortest.autogen.crawler;
