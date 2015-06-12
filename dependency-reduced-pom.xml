@@ -18,7 +18,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>com.vortest.autogen.UI.automation_engine</mainClass>
+                  <mainClass>com.vortest.autogen.UI.autogen_main_jform</mainClass>
                 </transformer>
               </transformers>
             </configuration>

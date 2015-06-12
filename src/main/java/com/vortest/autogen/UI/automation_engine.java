@@ -62,12 +62,12 @@ public class automation_engine extends JFrame {
         });
 
     }
-
+/*
     public static void main(String[] args) {
 
         initUI();
     }
-
+*/
     private static void initUI(){
         JFrame frame = new JFrame("automation_engine");
         frame.setContentPane(new automation_engine().main_panel);
