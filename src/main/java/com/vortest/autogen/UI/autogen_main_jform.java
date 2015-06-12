@@ -9,6 +9,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import com.jgoodies.forms.factories.*;
 import com.jgoodies.forms.layout.*;
+import com.vortest.autogen.DataTranslators.database;
 
 /**
  * @author unknown
@@ -18,6 +19,8 @@ public class autogen_main_jform {
         initComponents();
         autogen_main.setVisible(true);
         autogen_main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        database.get_websites();
+
 
     }
 

@@ -15,7 +15,10 @@ public class config {
     public static final String TestSite1 = "http://adam.goucher.ca/parkcalc/";
     public static final String TestSite2 = "http://www.reddit.com";
 
-    //JSON Stores
-    public static final String JSONStore = "/Users/sethurban/github/Vortest/auto_gen/JSON_Obj/";
+    //database connection
+    public static final String Db_location = "jdbc:mysql://localhost/autogendb";
+    public static final String Db_class = "com.mysql.jdbc.Driver";
+    public static final String Db_user = "root";
+    public static final String Db_pass = "";
 
 }
