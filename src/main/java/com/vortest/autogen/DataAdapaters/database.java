@@ -24,7 +24,8 @@ public class Database {
     private static final String page_select_query = "Select pageid, uri FROM autogendb.pages where websiteid = %s";
     private static final String element_select_query = "Select elementid, default_text, tagName, attributes FROM autogendb.elements where pageid = %s";
     private static final String locator_select_query = "Select locatorid, locator_by, locator_param FROM autogendb.locators WHERE elementid = %s";
-
+    //setter queries
+    private static final String website_insert_query = "Insert into autogen.websites ";
     private static void setup_connection(){
         try {
             dbconnect = DriverManager.getConnection(config.Db_location, config.Db_user, config.Db_pass);
@@ -34,7 +35,7 @@ public class Database {
             autogen_logging.log(Database.class.getSimpleName() + "setup connection failed. Exception: " + e.toString());
         }
     }
-
+    //Get Methods
     public static List<websitesContainer> get_websites(){
         setup_connection();
         //This function will be used to get a list of websites already present in the Database
@@ -86,7 +87,7 @@ public class Database {
                 element.id = results.getInt(1);
                 element.default_text = results.getString(2);
                 element.tagName = results.getString(3);
-                element.attributes = results.getString(4);
+                element.attributes = results.getString(4); //TODO convert this from-to base64 in element class
                 stored_elements.add(element);
             }
         }catch (Exception e){
@@ -114,5 +115,8 @@ public class Database {
         return stored_locators;
     }
 
+    //set methods
+    //TODO setter methods
+    //TODO update methods
 
 }
