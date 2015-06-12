@@ -100,7 +100,7 @@ public class Database {
                 element.id = results.getInt(1);
                 element.default_text = results.getString(2);
                 element.tagName = results.getString(3);
-                element.attributes = results.getString(4); 
+                element.attributes = results.getString(4);
                 stored_elements.add(element);
             }
             dbconnect.close();
