@@ -5,8 +5,10 @@ package com.vortest.autogen.DataAdapaters;
  */
 public class websitesContainer {
 
-    public int id;
+    public Integer id;
     public String uri;
+    public int page_num;
+    public int test_num;
     public String CreatedDate;
     public String UpdateDate;
     public boolean active;

@@ -16,7 +16,8 @@ public class config {
     public static final String TestSite2 = "http://www.reddit.com";
 
     //Database connection
-    public static final String Db_location = "jdbc:mysql://localhost/autogendb";
+    public static final String Db_name = "autogendb";
+    public static final String Db_location = "jdbc:mysql://localhost/" + Db_name;
     public static final String Db_class = "com.mysql.jdbc.Driver";
     public static final String Db_user = "root";
     public static final String Db_pass = "";

@@ -3,9 +3,7 @@ CREATE TABLE `autogendb`.`locators` (
   `elementid` INT NULL,
   `locator_by` INT NULL,
   `locator_param` VARCHAR(2000) NULL,
+  `create_date` DATETIME NULL,
+  `update_date` DATETIME NULL,
+  `active` INT NULL,
   PRIMARY KEY (`locatorid`));
-
-
-
-
-

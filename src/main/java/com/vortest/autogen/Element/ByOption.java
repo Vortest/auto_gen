@@ -8,5 +8,24 @@ public enum ByOption{
     Name,
     LinkText,
     PartialLinkText,
-    CssSelector
+    CssSelector;
+
+    public static ByOption fromInt(int javasucks){
+        switch (javasucks){
+            case 0:
+                return ClassName;
+            case 1:
+                return XPath;
+            case 2:
+                return Id;
+            case 3:
+                return Name;
+            case 4:
+                return LinkText;
+            case 5:
+                return PartialLinkText;
+            case 6:
+                return CssSelector;
+        }return null;
+    }
 }

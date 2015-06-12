@@ -5,8 +5,8 @@ package com.vortest.autogen.DataAdapaters;
  */
 public class pagesContainer {
 
-    public int id;
-    public int websiteid;
+    public Integer id;
+    public Integer websiteid;
     public String uri;
 
     public pagesContainer(){}

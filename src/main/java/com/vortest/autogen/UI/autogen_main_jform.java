@@ -9,7 +9,8 @@ import java.awt.event.*;
 import javax.swing.*;
 import com.jgoodies.forms.factories.*;
 import com.jgoodies.forms.layout.*;
-import com.vortest.autogen.DataAdapaters.Database;
+import com.vortest.autogen.DataAdapaters.*;
+
 
 /**
  * @author unknown
@@ -28,7 +29,11 @@ public class autogen_main_jform {
         new autogen_main_jform();
     }
     private void button1MouseClicked(MouseEvent e) {
-        // TODO add your code here
+        websitesContainer newwebsite = new websitesContainer();
+        newwebsite.uri = "http://www.test.com";
+        newwebsite.page_num = 4;
+        newwebsite.test_num = 8;
+        newwebsite.id = Database.set_website(newwebsite).id;
     }
 
     private void initComponents() {
