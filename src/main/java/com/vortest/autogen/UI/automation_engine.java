@@ -3,7 +3,6 @@
  */
 package com.vortest.autogen.UI;
 
-import com.vortest.autogen.DataTranslators.connection_test;
 import com.vortest.autogen.autogen_logging;
 import com.vortest.autogen.config;
 import com.vortest.autogen.crawler;
@@ -12,8 +11,6 @@ import org.apache.commons.validator.routines.UrlValidator;
 import javax.swing.*;
 import javax.swing.text.DefaultCaret;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -55,7 +52,7 @@ public class automation_engine extends JFrame {
                     thread.start();
                 }
                 else{
-                    setError("Invalid URL Provided!");
+                    setError("Invalid uri Provided!");
                 }
 
             }
@@ -124,11 +121,11 @@ public class automation_engine extends JFrame {
         }
         else{
             if (args.length == 0){
-                System.out.print("There was no URL specified.\n");
+                System.out.print("There was no uri specified.\n");
                 System.exit(-1);
             }
             else {
-                System.out.print(String.format("Selected URL setto: %s %s", args[0], "\n"));
+                System.out.print(String.format("Selected uri setto: %s %s", args[0], "\n"));
                 entryURL = args[0];
             }
         }

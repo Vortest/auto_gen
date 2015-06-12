@@ -1,11 +1,10 @@
-package com.vortest.autogen.DataTranslators;
+package com.vortest.autogen.DataAdapaters;
 
 import com.vortest.autogen.autogen_logging;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 public class connection_test {

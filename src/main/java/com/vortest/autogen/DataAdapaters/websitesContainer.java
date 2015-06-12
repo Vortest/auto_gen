@@ -1,4 +1,4 @@
-package com.vortest.autogen.DataTranslators;
+package com.vortest.autogen.DataAdapaters;
 
 /**
  * This class will be used as a memory storage for website data
@@ -6,7 +6,7 @@ package com.vortest.autogen.DataTranslators;
 public class websitesContainer {
 
     public int id;
-    public String URL;
+    public String uri;
     public String CreatedDate;
     public String UpdateDate;
     public boolean active;

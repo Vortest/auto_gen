@@ -1,11 +1,12 @@
 package com.vortest.autogen.Element;
 
+//NOTE: This order must match the order from the database
 public enum ByOption{
-    XPath,
-    CssSelector,
-    Id,
     ClassName,
+    XPath,
+    Id,
     Name,
     LinkText,
-    PartialLinkText
+    PartialLinkText,
+    CssSelector
 }

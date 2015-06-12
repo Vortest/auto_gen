@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class Page {
     //This is the container object to track pages we discover
-    //A single page is determined by the title and URL of the page as well as header information
+    //A single page is determined by the title and uri of the page as well as header information
     //A page can have multiple states depending on change made to the page
 
     private List<Element> _elements;
