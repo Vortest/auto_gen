@@ -36,14 +36,17 @@ public class Database {
     private static final String locator_insert_query = "INSERT INTO " + config.Db_name + ".locators (elementid, locator_by, locator_param, create_date, update_date, active) VALUES (%s, %s, %s, NOW(), NOW(), 1)";
     private static final String locator_update_query = "UPDATE " + config.Db_name + ".locators SET locator_by = %s, locator_param = %s, update_date = NOW() WHERE locatorid = %s";
 
-    private static void setup_connection(){
+    public static boolean setup_connection(){
+        boolean database_exists = true;
         try {
             dbconnect = DriverManager.getConnection(config.Db_location, config.Db_user, config.Db_pass);
             statement = dbconnect.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
             Class.forName(config.Db_class);
         } catch (Exception e) {
             autogen_logging.log(Database.class.getSimpleName() + "setup connection failed. Exception: " + e.toString());
+            database_exists = false;
         }
+        return database_exists;
     }
 
 
