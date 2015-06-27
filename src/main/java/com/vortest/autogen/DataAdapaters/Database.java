@@ -140,6 +140,7 @@ public class Database {
         //If the website passed in has an ID - do an update, else do an insert
         setup_connection();
         websitesContainer stored_website = new websitesContainer();
+        stored_website.uri = website.uri;
         try{
             if(website.id == null){
                 //then we want to insert and get the id back
@@ -164,6 +165,7 @@ public class Database {
         //this function will store a page for a website;
         setup_connection();
         pagesContainer stored_page = new pagesContainer();
+        stored_page.uri = page.uri;
         try{
             if(page.id == null){
                 //we want to do an insert here
@@ -184,6 +186,9 @@ public class Database {
     public static elementContainer set_element(int pageid, elementContainer element){
         //this function will store the elements
         elementContainer stored_element = new elementContainer();
+        stored_element.pageid = element.pageid;
+        stored_element.default_text = element.default_text;
+        stored_element.attributes = element.attributes;
         try{
             if(element.id == null){
                 //insert into the database

@@ -20,6 +20,9 @@ public class Element implements WebElement {
     private boolean _isVisible;
     private boolean _isEnabled;
     private boolean _isOnscreen;
+    public Integer PageID;
+    public Integer ElementID;
+
 
     public Element(WebElement ele){
         _element = ele;

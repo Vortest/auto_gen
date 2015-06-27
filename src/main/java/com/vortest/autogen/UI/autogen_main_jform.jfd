@@ -1,11 +1,11 @@
-JFDML JFormDesigner: "5.2.1.0.138" Java: "1.6.0_65" encoding: "UTF-8"
+JFDML JFormDesigner: "5.2.1.0.138" Java: "1.8.0_40-internal" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class com.jgoodies.forms.layout.FormLayout ) {
-			"$columnSpecs": "11dlu, labelcompgap, 118dlu, labelcompgap, default, labelcompgap, 66dlu, labelcompgap, 107dlu, 64dlu, labelcompgap, default, labelcompgap"
-			"$rowSpecs": "default, linegap, default, linegap, default, linegap, default, linegap, default, linegap, default, linegap, default, linegap, default, linegap, default, linegap, default"
+			"$columnSpecs": "11dlu, labelcompgap, 118dlu, labelcompgap, default, labelcompgap, 66dlu, labelcompgap, 107dlu, 64dlu, labelcompgap, default, labelcompgap, default, default"
+			"$rowSpecs": "default, linegap, default, linegap, default, linegap, default, linegap, default, linegap, default, linegap, default, linegap, default, linegap, default, linegap, default, linegap, 70dlu, linegap, default"
 		} ) {
 			name: "autogen_main"
 			"$sizePolicy": 1
@@ -24,8 +24,8 @@ new FormModel {
 				"gridX": 3
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textField1"
-				"text": "http://www.google.com"
+				name: "website_url"
+				"text": "http://"
 			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
 				"gridX": 5
 				"gridY": 5
@@ -48,7 +48,7 @@ new FormModel {
 				"gridX": 3
 			} )
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
-				name: "scrollPane1"
+				name: "Existing_Sites_Panel"
 				add( new FormComponent( "javax.swing.JList" ) {
 					name: "existing_websites_list"
 				} )
@@ -110,6 +110,17 @@ new FormModel {
 			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
 				"gridX": 7
 				"gridY": 19
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "Existing_Sites_Panel2"
+				add( new FormComponent( "javax.swing.JTextArea" ) {
+					name: "log_text_area"
+				} )
+			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+				"gridY": 20
+				"gridX": 3
+				"gridWidth": 9
+				"gridHeight": 2
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )

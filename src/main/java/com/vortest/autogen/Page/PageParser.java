@@ -1,6 +1,7 @@
 package com.vortest.autogen.Page;
 
 import com.google.gson.Gson;
+import com.vortest.autogen.DataAdapaters.*;
 import com.vortest.autogen.Element.Element;
 import com.vortest.autogen.Element.LocatorBuilder;
 import com.vortest.autogen.autogen_logging;
@@ -18,10 +19,27 @@ public class PageParser {
     private WebDriver driver;
     private List<Element> _allWebElements;
     private List<Element> _childElements;
+    private int _websiteid;
+    private pagesContainer _page;
+    private String _pageTitle;
+    private String _pageURL;
 
-    public PageParser(){
+
+    public PageParser(int website_id){
+        _websiteid = website_id;
+        gather_page_data();
         getAllElements();
         get_ImportantElements();
+    }
+
+    private void gather_page_data() {
+        _pageTitle = crawler.getDriver().findElementByTagName("title").getText();
+        _pageURL = crawler.getDriver().getCurrentUrl();
+        pagesContainer thispage = new pagesContainer();
+        thispage.websiteid = _websiteid;
+        thispage.uri = _pageURL;
+        _page = Database.set_pages(_websiteid, thispage);
+        autogen_logging.log(String.format("Added PageID: %s to database", _page.id));
     }
 
 
@@ -59,9 +77,11 @@ public class PageParser {
             Element element = _allWebElements.get(i);
             if(element.TagName.equals("p") || element.TagName.equals("a") || element.TagName.equals("select")){
                 autogen_logging.log("Found Paragraph, link or Dropdown");
+                element.PageID = _page.id;
                 _childElements.add(element);
             }
             if(element.findElements(By.cssSelector("*")).isEmpty()){
+                element.PageID = _page.id;
                 _childElements.add(element);
                 autogen_logging.log("Found Element with no descendants!");
             }
@@ -81,9 +101,7 @@ public class PageParser {
     }
 
     public Page get_page(){
-        String pageTitle = crawler.getDriver().findElementByTagName("title").getText();
-        String pageURL = crawler.getDriver().getCurrentUrl();
-        return new Page(pageTitle, pageURL, _childElements);
+        return new Page(_pageTitle, _pageURL, _childElements);
     }
 
 

@@ -46,7 +46,7 @@ public class automation_engine extends JFrame {
                     log_pane.setVisible(true);
                     scan_progress.setVisible(true);
                     scan_progress.setIndeterminate(true);
-                    autogen_logging.setform(automation_engine.this);
+                    //autogen_logging.setform(automation_engine.this);
                     Runnable run = new crawler(url_textfield.getText());
                     Thread thread = new Thread(run);
                     thread.start();

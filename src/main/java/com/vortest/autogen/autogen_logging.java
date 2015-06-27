@@ -1,6 +1,7 @@
 package com.vortest.autogen;
 
 
+import com.vortest.autogen.UI.autogen_main_jform;
 import com.vortest.autogen.UI.automation_engine;
 
 import java.io.IOException;
@@ -11,7 +12,7 @@ import java.util.logging.SimpleFormatter;
 public class autogen_logging {
 
     private static Logger log = Logger.getLogger("auto_gen");
-    private static automation_engine autogen;
+    private static autogen_main_jform autogen;
 
     FileHandler fh;
 
@@ -33,9 +34,9 @@ public class autogen_logging {
         log.info(message);
 
         if(!autogen.equals(null)){
-            autogen.log_textarea.append(message + "\n");
+            autogen.log_text_area.append(message + "\n");
             try {
-                autogen.log_textarea.setCaretPosition(autogen.log_textarea.getLineStartOffset(autogen.log_textarea.getLineCount() - 1));
+                autogen.log_text_area.setCaretPosition(autogen.log_text_area.getLineStartOffset(autogen.log_text_area.getLineCount() - 1));
             }catch (Exception e){
 
             }
@@ -50,7 +51,7 @@ public class autogen_logging {
         log.severe(message);
     }
 
-    public static void setform(final automation_engine ae){
+    public static void setform(final autogen_main_jform ae){
         autogen = ae;
     }
 

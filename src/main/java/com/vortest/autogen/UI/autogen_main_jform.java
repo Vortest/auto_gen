@@ -12,6 +12,10 @@ import com.jgoodies.forms.layout.*;
 import com.vortest.autogen.DataAdapaters.*;
 import java.util.List;
 
+import com.vortest.autogen.autogen_logging;
+import com.vortest.autogen.crawler;
+import org.apache.commons.validator.routines.UrlValidator;
+
 public class autogen_main_jform {
     private DefaultListModel existing_sites_dm;  //Because god forbid we're allowed to
 
@@ -45,11 +49,29 @@ public class autogen_main_jform {
     }
 
     private void scan_website_btnMouseClicked(MouseEvent e) {
-        websitesContainer newwebsite = new websitesContainer();
-        newwebsite.uri = "http://www.test.com";
-        newwebsite.page_num = 4;
-        newwebsite.test_num = 8;
-        newwebsite.id = Database.set_website(newwebsite).id;
+        if(validURL(website_url.getText())){
+            if(!existing_sites_dm.contains(website_url.getText())){
+                autogen_logging.setform(autogen_main_jform.this);
+                Runnable run = new crawler(website_url.getText());
+                Thread thread = new Thread(run);
+                thread.start();
+            }else{
+                JOptionPane.showMessageDialog(autogen_main, "You already have that URL in the database", "Duplciate URL", JOptionPane.ERROR_MESSAGE);
+            }
+
+        }else{
+            JOptionPane.showMessageDialog(autogen_main, "URL is Invalid - please enter a valid URL", "INvalid URL", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private boolean validURL(String url){
+        boolean URL_valid = false;
+        String[] schemes = {"http", "https"};
+        UrlValidator urlValidator = new UrlValidator(schemes);
+        if(urlValidator.isValid(url)){
+            URL_valid = true;
+        }
+        return URL_valid;
     }
 
     private void initComponents() {
@@ -59,10 +81,10 @@ public class autogen_main_jform {
         autogen_main = new JFrame();
         autogen_label = new JLabel();
         website_label = new JLabel();
-        textField1 = new JTextField();
+        website_url = new JTextField();
         scan_website_btn = new JButton();
         existing_sites_label = new JLabel();
-        scrollPane1 = new JScrollPane();
+        Existing_Sites_Panel = new JScrollPane();
         existing_websites_list = new JList(existing_sites_dm);
         existing_site_instructions = new JLabel();
         retest_btn = new JButton();
@@ -72,6 +94,8 @@ public class autogen_main_jform {
         testspass_tb = new JTextField();
         test_failed_lbl = new JLabel();
         testsfailed_tb = new JTextField();
+        Existing_Sites_Panel2 = new JScrollPane();
+        log_text_area = new JTextArea();
         CellConstraints cc = new CellConstraints();
 
         //======== autogen_main ========
@@ -91,7 +115,9 @@ public class autogen_main_jform {
                     new ColumnSpec(Sizes.dluX(64)),
                     FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
                     FormFactory.DEFAULT_COLSPEC,
-                    FormFactory.LABEL_COMPONENT_GAP_COLSPEC
+                    FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
+                    FormFactory.DEFAULT_COLSPEC,
+                    FormFactory.DEFAULT_COLSPEC
                 },
                 new RowSpec[] {
                     FormFactory.DEFAULT_ROWSPEC,
@@ -112,6 +138,10 @@ public class autogen_main_jform {
                     FormFactory.LINE_GAP_ROWSPEC,
                     FormFactory.DEFAULT_ROWSPEC,
                     FormFactory.LINE_GAP_ROWSPEC,
+                    FormFactory.DEFAULT_ROWSPEC,
+                    FormFactory.LINE_GAP_ROWSPEC,
+                    new RowSpec(Sizes.dluY(70)),
+                    FormFactory.LINE_GAP_ROWSPEC,
                     FormFactory.DEFAULT_ROWSPEC
                 }));
 
@@ -123,9 +153,9 @@ public class autogen_main_jform {
             website_label.setText("Webpage to Generate");
             autogen_mainContentPane.add(website_label, cc.xy(3, 5));
 
-            //---- textField1 ----
-            textField1.setText("http://www.google.com");
-            autogen_mainContentPane.add(textField1, cc.xywh(5, 5, 5, 1));
+            //---- website_url ----
+            website_url.setText("http://");
+            autogen_mainContentPane.add(website_url, cc.xywh(5, 5, 5, 1));
 
             //---- scan_website_btn ----
             scan_website_btn.setText("Scan Webpage");
@@ -142,11 +172,11 @@ public class autogen_main_jform {
             existing_sites_label.setText("Existing Websites");
             autogen_mainContentPane.add(existing_sites_label, cc.xy(3, 7));
 
-            //======== scrollPane1 ========
+            //======== Existing_Sites_Panel ========
             {
-                scrollPane1.setViewportView(existing_websites_list);
+                Existing_Sites_Panel.setViewportView(existing_websites_list);
             }
-            autogen_mainContentPane.add(scrollPane1, cc.xywh(3, 9, 8, 1));
+            autogen_mainContentPane.add(Existing_Sites_Panel, cc.xywh(3, 9, 8, 1));
 
             //---- existing_site_instructions ----
             existing_site_instructions.setText("To run a test for an existing site, select the site from the list and click the re-test button.");
@@ -170,6 +200,12 @@ public class autogen_main_jform {
             test_failed_lbl.setText("Tests Failed:");
             autogen_mainContentPane.add(test_failed_lbl, cc.xy(3, 19));
             autogen_mainContentPane.add(testsfailed_tb, cc.xy(7, 19));
+
+            //======== Existing_Sites_Panel2 ========
+            {
+                Existing_Sites_Panel2.setViewportView(log_text_area);
+            }
+            autogen_mainContentPane.add(Existing_Sites_Panel2, cc.xywh(3, 20, 9, 2));
             autogen_main.setSize(845, 585);
             autogen_main.setLocationRelativeTo(autogen_main.getOwner());
         }
@@ -181,10 +217,10 @@ public class autogen_main_jform {
     private JFrame autogen_main;
     private JLabel autogen_label;
     private JLabel website_label;
-    private JTextField textField1;
+    private JTextField website_url;
     private JButton scan_website_btn;
     private JLabel existing_sites_label;
-    private JScrollPane scrollPane1;
+    private JScrollPane Existing_Sites_Panel;
     private JList existing_websites_list;
     private JLabel existing_site_instructions;
     private JButton retest_btn;
@@ -194,5 +230,7 @@ public class autogen_main_jform {
     private JTextField testspass_tb;
     private JLabel test_failed_lbl;
     private JTextField testsfailed_tb;
+    private JScrollPane Existing_Sites_Panel2;
+    public JTextArea log_text_area;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

@@ -1,6 +1,8 @@
 package com.vortest.autogen.Page;
 
 import com.google.gson.Gson;
+import com.vortest.autogen.DataAdapaters.Database;
+import com.vortest.autogen.DataAdapaters.pagesContainer;
 import com.vortest.autogen.Element.Element;
 import com.vortest.autogen.autogen_logging;
 import com.vortest.autogen.config;
@@ -23,6 +25,8 @@ public class Page {
     private String _title;
     private String _url;
     private List<String> _states;
+    public Integer website_id;
+    public pagesContainer page;
 
     public Page(String title, String url, List<Element> elements){
         _states = new ArrayList<String>();
