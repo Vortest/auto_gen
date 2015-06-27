@@ -4,6 +4,7 @@ import com.vortest.autogen.Element.ByOption;
 import org.openqa.selenium.By;
 
 public class Locator {
+    public Integer LocatorID;
     public ByOption By;
     public String param;
 

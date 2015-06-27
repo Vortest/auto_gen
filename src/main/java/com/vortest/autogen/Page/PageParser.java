@@ -78,10 +78,12 @@ public class PageParser {
             if(element.TagName.equals("p") || element.TagName.equals("a") || element.TagName.equals("select")){
                 autogen_logging.log("Found Paragraph, link or Dropdown");
                 element.PageID = _page.id;
+                element.persistElement();
                 _childElements.add(element);
             }
             if(element.findElements(By.cssSelector("*")).isEmpty()){
                 element.PageID = _page.id;
+                element.persistElement();
                 _childElements.add(element);
                 autogen_logging.log("Found Element with no descendants!");
             }

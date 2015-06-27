@@ -10,6 +10,7 @@ public enum ByOption{
     PartialLinkText,
     CssSelector;
 
+    //this is so stupid that I have to actually code these to methods
     public static ByOption fromInt(int javasucks){
         switch (javasucks){
             case 0:
@@ -26,6 +27,25 @@ public enum ByOption{
                 return PartialLinkText;
             case 6:
                 return CssSelector;
+        }return null;
+    }
+
+    public static Integer toInt(ByOption stupidjava){
+        switch (stupidjava){
+            case ClassName:
+                return 0;
+            case XPath:
+                return 1;
+            case Id:
+                return 2;
+            case Name:
+                return 3;
+            case LinkText:
+                return 4;
+            case PartialLinkText:
+                return 5;
+            case CssSelector:
+                return 6;
         }return null;
     }
 }

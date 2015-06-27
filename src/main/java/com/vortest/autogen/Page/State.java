@@ -21,7 +21,7 @@ public class State {
     //Takesome values and encode them in base64
 
     public static String encodeState(String url, List<Element> elements){
-        String pageState = url;
+        /*String pageState = url;
         for(int x = 0; x < elements.size(); x++){
             pageState += elements.get(x).TagName;
             pageState += elements.get(x).getText();
@@ -29,6 +29,8 @@ public class State {
         }
         System.out.println("Page state: " + pageState);
         return Base64.encodeBase64String(pageState.getBytes());
+        */
+        return null;
     }
 
     public static String decodeState(String encoded){

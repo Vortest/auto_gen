@@ -31,9 +31,9 @@ public class Database {
     private static final String website_update_query = "UPDATE " + config.Db_name + ".websites SET uri = %s, page_num = %s, test_num = %s, update_date = NOW() WHERE websiteid = %s";
     private static final String page_insert_query = "INSERT INTO " + config.Db_name + ".pages (websiteid, uri, create_date, update_date, active) VALUES (%s, %s, NOW(), NOW(), 1)";
     private static final String page_update_query = "UPDATE " + config.Db_name + ".pages SET uri = %s, update_date = NOW() WHERE pageid = %s";
-    private static final String element_insert_query = "INSERT INTO " + config.Db_name + ".elements (pageid, default_text, tagName, attributes, create_date, update_date, active) VALUES (%s, %s, %s, %s, NOW(), NOW(), 1)";
+    private static final String element_insert_query = "INSERT INTO " + config.Db_name + ".elements (pageid, default_text, tagName, attributes, create_date, update_date, active) VALUES (%s, '%s','%s', '%s', NOW(), NOW(), 1)";
     private static final String element_update_query = "UPDATE " + config.Db_name + ".elements SET default_text = %s, tagName = %s, attributes = %s, update_date = NOW() WHERE elementid = %s";
-    private static final String locator_insert_query = "INSERT INTO " + config.Db_name + ".locators (elementid, locator_by, locator_param, create_date, update_date, active) VALUES (%s, %s, %s, NOW(), NOW(), 1)";
+    private static final String locator_insert_query = "INSERT INTO " + config.Db_name + ".locators (elementid, locator_by, locator_param, create_date, update_date, active) VALUES (%s, %s, '%s', NOW(), NOW(), 1)";
     private static final String locator_update_query = "UPDATE " + config.Db_name + ".locators SET locator_by = %s, locator_param = %s, update_date = NOW() WHERE locatorid = %s";
 
     public static boolean setup_connection(){
@@ -41,6 +41,7 @@ public class Database {
         try {
             dbconnect = DriverManager.getConnection(config.Db_location, config.Db_user, config.Db_pass);
             statement = dbconnect.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
+
             Class.forName(config.Db_class);
         } catch (Exception e) {
             autogen_logging.log(Database.class.getSimpleName() + "setup connection failed. Exception: " + e.toString());
@@ -145,9 +146,11 @@ public class Database {
             if(website.id == null){
                 //then we want to insert and get the id back
                 String insert_website = String.format(website_insert_query, "'" + website.uri + "'", website.page_num, website.test_num);
-                int results = statement.executeUpdate(insert_website, Statement.RETURN_GENERATED_KEYS);
-                stored_website = website;
-                stored_website.id = results;
+                statement.executeUpdate(insert_website, Statement.RETURN_GENERATED_KEYS);
+                ResultSet rs = statement.getGeneratedKeys();
+                while(rs.next()){
+                    stored_website.id = rs.getInt(1);
+                }
             }else {
                 //We want to update instead
                 String update_website = String.format(website_update_query, website.uri, website.page_num, website.test_num, website.id);
@@ -170,7 +173,11 @@ public class Database {
             if(page.id == null){
                 //we want to do an insert here
                 String insert_page = String.format(page_insert_query, websiteid, "'" + page.uri + "'");
-                stored_page.id = statement.executeUpdate(insert_page, Statement.RETURN_GENERATED_KEYS);
+                statement.executeUpdate(insert_page, Statement.RETURN_GENERATED_KEYS);
+                ResultSet rs = statement.getGeneratedKeys();
+                while(rs.next()){
+                    stored_page.id = rs.getInt(1);
+                }
             }else {
                 String update_page = String.format(page_update_query, page.uri, page.id);
                 statement.executeUpdate(update_page);
@@ -185,15 +192,21 @@ public class Database {
 
     public static elementContainer set_element(int pageid, elementContainer element){
         //this function will store the elements
+        setup_connection();
         elementContainer stored_element = new elementContainer();
         stored_element.pageid = element.pageid;
-        stored_element.default_text = element.default_text;
+        stored_element.default_text = element.default_text.replaceAll("'", "\\$" );
+
         stored_element.attributes = element.attributes;
         try{
             if(element.id == null){
                 //insert into the database
-                String insert_element = String.format(element_insert_query, pageid, element.default_text, element.tagName, element.attributes);
-                stored_element.id = statement.executeUpdate(insert_element, Statement.RETURN_GENERATED_KEYS);
+                String insert_element = String.format(element_insert_query, pageid, stored_element.default_text, element.tagName, element.attributes);
+                statement.executeUpdate(insert_element, Statement.RETURN_GENERATED_KEYS);
+                ResultSet rs = statement.getGeneratedKeys();
+                while(rs.next()){
+                    stored_element.id = rs.getInt(1);
+                }
             }else {
                 String update_element = String.format(element_update_query, element.default_text, element.tagName, element.attributes, element.id);
                 statement.executeUpdate(update_element);
@@ -208,12 +221,17 @@ public class Database {
 
     public static locatorContainer set_locator(int elementid, locatorContainer locator){
         //this function will store the locators;
+        setup_connection();
         locatorContainer stored_locator = new locatorContainer();
         try{
             if(locator.id == null){
-                String insert_locator = String.format(locator_insert_query, elementid, locator.locator_by, locator.locator_param);
+                String insert_locator = String.format(locator_insert_query, elementid, locator.locator_by.toInt(locator.locator_by), locator.locator_param.replaceAll("'", "\\$" ));
                 stored_locator = locator;
-                stored_locator.id = statement.executeUpdate(insert_locator, Statement.RETURN_GENERATED_KEYS);
+                statement.executeUpdate(insert_locator, Statement.RETURN_GENERATED_KEYS);
+                ResultSet rs = statement.getGeneratedKeys();
+                while(rs.next()){
+                    stored_locator.id = rs.getInt(1);
+                }
             }else {
                 String update_locator = String.format(locator_update_query, locator.locator_by.ordinal(), locator.locator_param, locator.id);
                 stored_locator = locator;

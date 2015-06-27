@@ -1,8 +1,13 @@
 package com.vortest.autogen.Element;
 
 
+import com.vortest.autogen.DataAdapaters.Database;
+import com.vortest.autogen.DataAdapaters.elementContainer;
+import com.vortest.autogen.DataAdapaters.locatorContainer;
+import com.vortest.autogen.autogen_logging;
 import com.vortest.autogen.crawler;
 import org.openqa.selenium.*;
+import org.apache.commons.codec.binary.Base64;
 
 
 import java.util.*;
@@ -20,8 +25,9 @@ public class Element implements WebElement {
     private boolean _isVisible;
     private boolean _isEnabled;
     private boolean _isOnscreen;
+    private Integer _elementID;
     public Integer PageID;
-    public Integer ElementID;
+
 
 
     public Element(WebElement ele){
@@ -65,7 +71,21 @@ public class Element implements WebElement {
                 "for (index = 0; index < arguments[0].attributes.length;" +
                 " ++index) { items[arguments[0].attributes[index].name] = arguments[0].attributes[index].value }; " +
                 "return items;", _element);
+
     }
+
+    public void persistElement() {
+        if(this._elementID == null){
+            elementContainer thiselement = new elementContainer();
+            thiselement.pageid = PageID;
+            thiselement.tagName = TagName;
+            thiselement.default_text = this.getText();
+            thiselement.attributes = Base64.encodeBase64String(Attributes.toString().getBytes());
+            _elementID = Database.set_element(PageID, thiselement).id;
+            autogen_logging.log("Stored ElementID: " + _elementID.toString());
+        }
+    }
+
     public HashMap<String, String> getAttributes(){
         //This function will try and return notable attributes first before returning other attributes
         //Notable attributes Type, Value, Name, ClassName
@@ -105,7 +125,16 @@ public class Element implements WebElement {
     }
 
     public void setLocators(List<Locator> locators){
+        //perist locators to database here
         _locators = locators;
+        if(_locators.size() > 0) {
+            for (int i = 0; i < _locators.size(); i++) {
+                locatorContainer locont = new locatorContainer();
+                locont.locator_by = _locators.get(i).By;
+                locont.locator_param = _locators.get(i).param;
+                _locators.get(i).LocatorID = Database.set_locator(_elementID, locont).id;
+            }
+        }
     }
     public List<Locator> get_locators(){
         if(_locators == null){
