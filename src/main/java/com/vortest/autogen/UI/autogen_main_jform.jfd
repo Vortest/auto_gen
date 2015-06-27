@@ -68,6 +68,7 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "retest_btn"
 				"text": "ReTest"
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "retest_btnMouseClicked", true ) )
 			}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
 				"gridX": 10
 				"gridY": 13

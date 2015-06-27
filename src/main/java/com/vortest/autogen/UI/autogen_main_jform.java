@@ -4,17 +4,20 @@
 
 package com.vortest.autogen.UI;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import com.jgoodies.forms.factories.*;
+import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.*;
-import com.vortest.autogen.DataAdapaters.*;
-import java.util.List;
-
+import com.vortest.autogen.DataAdapaters.Database;
+import com.vortest.autogen.DataAdapaters.websitesContainer;
+import com.vortest.autogen.Driver;
 import com.vortest.autogen.autogen_logging;
 import com.vortest.autogen.crawler;
 import org.apache.commons.validator.routines.UrlValidator;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
 
 public class autogen_main_jform {
     private DefaultListModel existing_sites_dm;  //Because god forbid we're allowed to
@@ -72,6 +75,12 @@ public class autogen_main_jform {
             URL_valid = true;
         }
         return URL_valid;
+    }
+
+    private void retest_btnMouseClicked(MouseEvent e) {
+        String url = existing_sites_dm.get(existing_websites_list.getSelectedIndex()).toString();
+        Driver driver = new Driver();
+        driver.get(url);
     }
 
     private void initComponents() {
@@ -184,6 +193,12 @@ public class autogen_main_jform {
 
             //---- retest_btn ----
             retest_btn.setText("ReTest");
+            retest_btn.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    retest_btnMouseClicked(e);
+                }
+            });
             autogen_mainContentPane.add(retest_btn, cc.xy(10, 13));
 
             //---- tests_label ----
